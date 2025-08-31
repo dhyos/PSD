@@ -1,0 +1,1227 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Understanding data &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dataunderstan';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdataunderstan.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/dataunderstan.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Understanding data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-tipe-data">📊 Macam-macam Tipe Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-sifat-data">1. Ditinjau dari <strong>Sifat Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-sumber-data">2. Ditinjau dari <strong>Sumber Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-representasi-data">3. Ditinjau dari <strong>Representasi Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-struktur-data">4. Ditinjau dari <strong>Struktur Data</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">Pengumpulan Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library-yang-dibutuhkan">Install lIbrary yang dibutuhkan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-data">Sampling data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiling-data">Profiling data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#korelasi-dan-asosiasi">Korelasi dan Asosiasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data">Ekplorasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menapilkan-data-dalam-bentuk-diagram">Menapilkan data dalam bentuk diagram</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indentifikasi-masalah-data">Indentifikasi Masalah Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-data">Validasi data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="understanding-data">
+<h1>Understanding data<a class="headerlink" href="#understanding-data" title="Link to this heading">#</a></h1>
+<p>Dalam kerangka kerja CRISP-DM (Cross Industry Standard Process for Data Mining), tahap Data Understanding merupakan langkah kedua setelah Business Understanding. Tujuannya adalah untuk memahami data yang dimiliki secara menyeluruh sebelum masuk ke tahap pemodelan</p>
+<section id="macam-macam-tipe-data">
+<h2>📊 Macam-macam Tipe Data<a class="headerlink" href="#macam-macam-tipe-data" title="Link to this heading">#</a></h2>
+<p>Data dalam ilmu data dapat diklasifikasikan dari berbagai sudut pandang. Berikut adalah penjelasan tipe data ditinjau dari <strong>sifat</strong>, <strong>sumber</strong>, <strong>representasi</strong>, dan <strong>struktur</strong>:</p>
+<hr class="docutils" />
+<section id="ditinjau-dari-sifat-data">
+<h3>1. Ditinjau dari <strong>Sifat Data</strong><a class="headerlink" href="#ditinjau-dari-sifat-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Kualitatif (Qualitative Data)</strong></p>
+<ul>
+<li><p>Data berbentuk kategori atau deskripsi, tidak berupa angka.</p></li>
+<li><p>Contoh: jenis kelamin (laki-laki/perempuan), warna mobil, merek motor.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Kuantitatif (Quantitative Data)</strong></p>
+<ul>
+<li><p>Data berbentuk angka, bisa dihitung dan diukur.</p></li>
+<li><p>Dibagi menjadi:</p>
+<ul>
+<li><p><strong>Diskrit (Discrete)</strong> → berupa hitungan, tidak bisa pecahan. Contoh: jumlah unit terjual.</p></li>
+<li><p><strong>Kontinu (Continuous)</strong> → berupa ukuran, bisa dalam pecahan. Contoh: harga kendaraan, tinggi badan.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ditinjau-dari-sumber-data">
+<h3>2. Ditinjau dari <strong>Sumber Data</strong><a class="headerlink" href="#ditinjau-dari-sumber-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Primer</strong></p>
+<ul>
+<li><p>Data diperoleh langsung dari sumber pertama melalui survei, wawancara, observasi, atau eksperimen.</p></li>
+<li><p>Contoh: kuesioner pelanggan PT. Hasjrat Abadi.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Sekunder</strong></p>
+<ul>
+<li><p>Data diperoleh dari pihak lain atau sumber yang sudah tersedia.</p></li>
+<li><p>Contoh: laporan keuangan perusahaan, data BPS, dataset publik dari Kaggle.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ditinjau-dari-representasi-data">
+<h3>3. Ditinjau dari <strong>Representasi Data</strong><a class="headerlink" href="#ditinjau-dari-representasi-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Numerik</strong></p>
+<ul>
+<li><p>Direpresentasikan dalam bentuk angka.</p></li>
+<li><p>Contoh: harga, kuantitas penjualan, umur.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Kategorikal</strong></p>
+<ul>
+<li><p>Direpresentasikan dalam bentuk kategori/label.</p></li>
+<li><p>Contoh: tipe kendaraan (MPV, SUV, Hatchback).</p></li>
+</ul>
+</li>
+<li><p><strong>Data Ordinal</strong></p>
+<ul>
+<li><p>Direpresentasikan sebagai kategori tetapi ada tingkatan.</p></li>
+<li><p>Contoh: kepuasan pelanggan (sangat puas, puas, kurang puas).</p></li>
+</ul>
+</li>
+<li><p><strong>Data Biner</strong></p>
+<ul>
+<li><p>Hanya memiliki dua nilai.</p></li>
+<li><p>Contoh: Ya/Tidak, Aktif/Nonaktif.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Teks &amp; Multimedia</strong></p>
+<ul>
+<li><p>Representasi dalam bentuk unstructured data.</p></li>
+<li><p>Contoh: ulasan pelanggan (text), foto kendaraan (image), rekaman iklan (video).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ditinjau-dari-struktur-data">
+<h3>4. Ditinjau dari <strong>Struktur Data</strong><a class="headerlink" href="#ditinjau-dari-struktur-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Data Terstruktur (Structured Data)</strong></p>
+<ul>
+<li><p>Tersimpan dalam format tabel dengan baris dan kolom yang jelas.</p></li>
+<li><p>Contoh: database SQL berisi data transaksi.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Semi Terstruktur (Semi-Structured Data)</strong></p>
+<ul>
+<li><p>Tidak seketat tabel, tetapi masih punya label/tag.</p></li>
+<li><p>Contoh: file XML, JSON, log server.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Tidak Terstruktur (Unstructured Data)</strong></p>
+<ul>
+<li><p>Tidak punya format tertentu, biasanya data teks bebas atau media.</p></li>
+<li><p>Contoh: komentar media sosial, gambar produk, video iklan.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="pengumpulan-data">
+<h2>Pengumpulan Data<a class="headerlink" href="#pengumpulan-data" title="Link to this heading">#</a></h2>
+<p>Dalam tahap ini kita harus mendapatkna data dari perusahaan PT. Hasjrat Abadi Lapulu bisa menggunakan data primer yaitu data yang kita peroleh langsung di lapangan atau data sekunder yang bisa kita dapatkan lewat media seperti <a class="reference external" href="https://www.kaggle.com/">https://www.kaggle.com/</a> dll. disini saya menggunakan data yang tersedia di kagle <a class="reference external" href="https://www.kaggle.com/datasets/raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu">https://www.kaggle.com/datasets/raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu</a> kita bisa mendowload data tersebut atau menarik datanya langsung dari kagle. Saya akan mencoba menarik datanya langsung dari kagle. dnegan menyalin code yang tersedia pada dataset tersebut</p>
+<section id="install-library-yang-dibutuhkan">
+<h3>Install lIbrary yang dibutuhkan<a class="headerlink" href="#install-library-yang-dibutuhkan" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>kagglehub<span class="o">[</span>pandas-datasets<span class="o">]</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>tabulate
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>ydata_profiling
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: kagglehub[pandas-datasets] in /usr/local/lib/python3.12/dist-packages (0.3.12)
+Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from kagglehub[pandas-datasets]) (25.0)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.12/dist-packages (from kagglehub[pandas-datasets]) (6.0.2)
+Requirement already satisfied: requests in /usr/local/lib/python3.12/dist-packages (from kagglehub[pandas-datasets]) (2.32.4)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.12/dist-packages (from kagglehub[pandas-datasets]) (4.67.1)
+Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (from kagglehub[pandas-datasets]) (2.2.2)
+Requirement already satisfied: numpy&gt;=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas-&gt;kagglehub[pandas-datasets]) (2.0.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas-&gt;kagglehub[pandas-datasets]) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas-&gt;kagglehub[pandas-datasets]) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas-&gt;kagglehub[pandas-datasets]) (2025.2)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;kagglehub[pandas-datasets]) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;kagglehub[pandas-datasets]) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;kagglehub[pandas-datasets]) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;kagglehub[pandas-datasets]) (2025.8.3)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas-&gt;kagglehub[pandas-datasets]) (1.17.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tabulate in /usr/local/lib/python3.12/dist-packages (0.9.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ydata_profiling
+  Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl.metadata (22 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scipy&lt;1.16,&gt;=1.4.1 (from ydata_profiling)
+  Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/62.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">62.0/62.0 kB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: pandas!=1.4.0,&lt;3.0,&gt;1.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.2.2)
+Requirement already satisfied: matplotlib&lt;=3.10,&gt;=3.5 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (3.10.0)
+Requirement already satisfied: pydantic&gt;=2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.11.7)
+Requirement already satisfied: PyYAML&lt;6.1,&gt;=5.0.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (6.0.2)
+Requirement already satisfied: jinja2&lt;3.2,&gt;=2.11.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (3.1.6)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting visions&lt;0.8.2,&gt;=0.7.5 (from visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
+  Downloading visions-0.8.1-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: numpy&lt;2.2,&gt;=1.16.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.0.2)
+Collecting htmlmin==0.1.12 (from ydata_profiling)
+  Downloading htmlmin-0.1.12.tar.gz (19 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l?25hdone
+Collecting phik&lt;0.13,&gt;=0.11.1 (from ydata_profiling)
+  Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (5.6 kB)
+Requirement already satisfied: requests&lt;3,&gt;=2.24.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.32.4)
+Requirement already satisfied: tqdm&lt;5,&gt;=4.48.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.67.1)
+Requirement already satisfied: seaborn&lt;0.14,&gt;=0.10.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.13.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting multimethod&lt;2,&gt;=1.4 (from ydata_profiling)
+  Downloading multimethod-1.12-py3-none-any.whl.metadata (9.6 kB)
+Requirement already satisfied: statsmodels&lt;1,&gt;=0.13.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.14.5)
+Requirement already satisfied: typeguard&lt;5,&gt;=3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.4.4)
+Collecting imagehash==4.3.1 (from ydata_profiling)
+  Downloading ImageHash-4.3.1-py2.py3-none-any.whl.metadata (8.0 kB)
+Requirement already satisfied: wordcloud&gt;=1.9.3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.9.4)
+Collecting dacite&gt;=1.8 (from ydata_profiling)
+  Downloading dacite-1.9.2-py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: numba&lt;=0.61,&gt;=0.56.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.60.0)
+Requirement already satisfied: PyWavelets in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (1.9.0)
+Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (11.3.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2&lt;3.2,&gt;=2.11.1-&gt;ydata_profiling) (3.0.2)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.3.3)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (4.59.1)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.4.9)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (25.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (3.2.3)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (2.9.0.post0)
+Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/local/lib/python3.12/dist-packages (from numba&lt;=0.61,&gt;=0.56.0-&gt;ydata_profiling) (0.43.0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas!=1.4.0,&lt;3.0,&gt;1.1-&gt;ydata_profiling) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas!=1.4.0,&lt;3.0,&gt;1.1-&gt;ydata_profiling) (2025.2)
+Requirement already satisfied: joblib&gt;=0.14.1 in /usr/local/lib/python3.12/dist-packages (from phik&lt;0.13,&gt;=0.11.1-&gt;ydata_profiling) (1.5.1)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2-&gt;ydata_profiling) (0.7.0)
+Requirement already satisfied: pydantic-core==2.33.2 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2-&gt;ydata_profiling) (2.33.2)
+Requirement already satisfied: typing-extensions&gt;=4.12.2 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2-&gt;ydata_profiling) (4.15.0)
+Requirement already satisfied: typing-inspection&gt;=0.4.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2-&gt;ydata_profiling) (0.4.1)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (3.4.3)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (2025.8.3)
+Requirement already satisfied: patsy&gt;=0.5.6 in /usr/local/lib/python3.12/dist-packages (from statsmodels&lt;1,&gt;=0.13.2-&gt;ydata_profiling) (1.0.1)
+Requirement already satisfied: attrs&gt;=19.3.0 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (25.3.0)
+Requirement already satisfied: networkx&gt;=2.4 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (3.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting puremagic (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
+  Downloading puremagic-1.30-py3-none-any.whl.metadata (5.8 kB)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.17.0)
+Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl (400 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/400.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━ <span class=" -Color -Color-Green">337.9/400.1 kB</span> <span class=" -Color -Color-Red">10.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">400.1/400.1 kB</span> <span class=" -Color -Color-Red">8.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading ImageHash-4.3.1-py2.py3-none-any.whl (296 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/296.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">296.5/296.5 kB</span> <span class=" -Color -Color-Red">22.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading dacite-1.9.2-py3-none-any.whl (16 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading multimethod-1.12-py3-none-any.whl (10 kB)
+Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (679 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/679.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">679.7/679.7 kB</span> <span class=" -Color -Color-Red">39.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.3 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/37.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.1/37.3 MB</span> <span class=" -Color -Color-Red">154.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">12.2/37.3 MB</span> <span class=" -Color -Color-Red">188.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">19.0/37.3 MB</span> <span class=" -Color -Color-Red">196.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">25.5/37.3 MB</span> <span class=" -Color -Color-Red">189.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ <span class=" -Color -Color-Green">32.0/37.3 MB</span> <span class=" -Color -Color-Red">187.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">32.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading visions-0.8.1-py3-none-any.whl (105 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/105.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">105.4/105.4 kB</span> <span class=" -Color -Color-Red">9.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading puremagic-1.30-py3-none-any.whl (43 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/43.3 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">43.3/43.3 kB</span> <span class=" -Color -Color-Red">4.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: htmlmin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for htmlmin (setup.py) ... ?25l?25hdone
+  Created wheel for htmlmin: filename=htmlmin-0.1.12-py3-none-any.whl size=27081 sha256=0211844a0b3a552b02b0e423552378c29bf2a3df1242c6871b9f7df5b804b6ad
+  Stored in directory: /root/.cache/pip/wheels/5f/d4/d7/4189b07b5902ee9f3ce0dbb14909fbe8037c39d6c63ffd49c9
+Successfully built htmlmin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: puremagic, htmlmin, scipy, multimethod, dacite, imagehash, visions, phik, ydata_profiling
+  Attempting uninstall: scipy
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: scipy 1.16.1
+    Uninstalling scipy-1.16.1:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled scipy-1.16.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">kagglehub</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">kagglehub</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaggleDatasetAdapter</span>
+
+<span class="c1"># Nama file sesuai dataset Kaggle</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;Dataset PT Hasjrat Abadi.csv&quot;</span>
+
+<span class="c1"># Load dataset ke pandas dataframe (dengan encoding fallback)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span>
+    <span class="n">KaggleDatasetAdapter</span><span class="o">.</span><span class="n">PANDAS</span><span class="p">,</span>
+    <span class="s2">&quot;raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu&quot;</span><span class="p">,</span>
+    <span class="n">file_path</span><span class="p">,</span>
+    <span class="n">pandas_kwargs</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;sep&quot;</span><span class="p">:</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;latin1&quot;</span>  <span class="c1"># atau &quot;ISO-8859-1&quot; jika tetap error</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-460715300.py:8: DeprecationWarning: load_dataset is deprecated and will be removed in a future version.
+  df = kagglehub.load_dataset(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
+<span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">head_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">tail_data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan dengan pemisah &quot;.......&quot;</span>
+<span class="n">separator</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s2">&quot;....&quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># Gabungan</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">head_data</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="n">tail_data</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan dalam bentuk tabel</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s2">&quot;keys&quot;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span><span class="n">showindex</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| id    | No Faktur   | Model            | Kuantitas   | Tanggal Pemesanan   | Harga      | ID Pelanggan   | Tempat Tinggal      |
++=======+=============+==================+=============+=====================+============+================+=====================+
+| 1     | 489434      | MIO M3 CW        | 1.0         | 06/06/2024          | 20,500,000 | 17850.0        | KOTA KENDARI        |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 2     | 489434      | JUPITER Z CW FI  | 1.0         | 06/06/2024          | 23,100,000 | 17850.0        | KAB. KONAWE         |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 3     | 489434      | ALL NEW NMAX 155 | 1.0         | 06/06/2024          | 36,100,000 | 17850.0        | KAB. KOLAKA UTARA   |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 4     | 489434      | ALL NEW NMAX 155 | 1.0         | 06/06/2024          | 36,100,000 | 17850.0        | KAB. KOLAKA UTARA   |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 5     | 489434      | MIO M3 CW        | 1.0         | 06/06/2024          | 20,500,000 | 17850.0        | KAB. KONAWE         |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| ....  | ....        | ....             | ....        | ....                | ....       | ....           | ....                |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 30135 | 538849      | MIO M3 CW        | 5.0         | 20/06/2023          | 20,500,000 | 17422.0        | KAB. KONAWE SELATAN |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 30136 | 538849      | MIO M3 CW        | 5.0         | 21/06/2023          | 37,600,000 | 17422.0        | KOTA KENDARI        |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 30137 | 538849      | MIO M3 CW        | 5.0         | 22/06/2023          | 29,750,000 | 17422.0        | KAB. MUNA           |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 30138 | 538849      | MIO M3 CW        | 5.0         | 23/06/2023          | 37,600,000 | 17422.0        | KOTA KENDARI        |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+| 30139 | 538849      | FINO GRANDE 125  | 5.0         | 24/06/2023          | 29,750,000 | 17422.0        | KOTA KENDARI        |
++-------+-------------+------------------+-------------+---------------------+------------+----------------+---------------------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sampling-data">
+<h2>Sampling data<a class="headerlink" href="#sampling-data" title="Link to this heading">#</a></h2>
+<p>Sampling data digunakan untuk memahami subset data tanpa harus memproses seluruh dataset disi.pada tahap ini samplng digunakan dengan mengelompokkan data berdasarkan kelasnya dengan warna yang berbeda pada data ini setiap model akan dikelompokkan dengan warna yang berbeda agar dapat mempermudah proses visualisasi data</p>
+</section>
+<section id="profiling-data">
+<h2>Profiling data<a class="headerlink" href="#profiling-data" title="Link to this heading">#</a></h2>
+<p>merupakan proses membuat ringkasan tentang setiap variable dalam dataset,termasuk tipe data dan meproses memeriksa, memahami, dan menganalisis struktur serta kualitas data sebelum digunakan dalam analisis lebih lanjut. pada data ini terdapat 8 kolom</p>
+</section>
+<section id="visualisasi-data">
+<h2>Visualisasi Data<a class="headerlink" href="#visualisasi-data" title="Link to this heading">#</a></h2>
+<p>Visualisasi data dalam analisis dataset digunakan ketika kita ingin memahami, mengeksplorasi, dan menyajikan pola dalam data. visualisasi membantu dalam mendeteksi pola, tren, hubungan antar fitur, serta distribusi data menampilkan visualisasi data dengan diagram membantu dalam mempercepat analisis data.</p>
+</section>
+<section id="korelasi-dan-asosiasi">
+<h2>Korelasi dan Asosiasi<a class="headerlink" href="#korelasi-dan-asosiasi" title="Link to this heading">#</a></h2>
+<p>merupakan proses menghitung koefisien korelasi untuk melihat hubungan linier antar variable yang bertujuan untuk menganalisis hubungan antar variabel dalam dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Info umum dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Info Dataset ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+
+<span class="c1"># 2. Statistik deskriptif</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Statistik Deskriptif ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">))</span>
+
+<span class="c1"># 3. Jumlah nilai unik per kolom</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Nilai Unik per Kolom ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> unique values&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Cek missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Missing Values ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># 5. Korelasi numerik</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Korelasi ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 30139 entries, 0 to 30138
+Data columns (total 8 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   id                 30139 non-null  int64  
+ 1   No Faktur          30139 non-null  object 
+ 2   Model              30139 non-null  object 
+ 3   Kuantitas          30135 non-null  float64
+ 4   Tanggal Pemesanan  30139 non-null  object 
+ 5   Harga              30139 non-null  float64
+ 6   ID Pelanggan       30111 non-null  float64
+ 7   Tempat Tinggal     30139 non-null  object 
+dtypes: float64(3), int64(1), object(4)
+memory usage: 1.8+ MB
+None
+
+=== Statistik Deskriptif ===
+                  id No Faktur      Model     Kuantitas Tanggal Pemesanan  \
+count   30139.000000     30139      30139  30135.000000             30139   
+unique           NaN      1406         69           NaN               264   
+top              NaN    537434  MIO M3 CW           NaN        07/10/2023   
+freq             NaN       675       7100           NaN              1895   
+mean    15070.000000       NaN        NaN      6.457242               NaN   
+std      8700.524218       NaN        NaN     10.937399               NaN   
+min         1.000000       NaN        NaN   -290.000000               NaN   
+25%      7535.500000       NaN        NaN      1.000000               NaN   
+50%     15070.000000       NaN        NaN      3.000000               NaN   
+75%     22604.500000       NaN        NaN      8.000000               NaN   
+max     30139.000000       NaN        NaN    240.000000               NaN   
+
+               Harga  ID Pelanggan Tempat Tinggal  
+count   3.013900e+04  30111.000000          30139  
+unique           NaN           NaN             41  
+top              NaN           NaN   KOTA KENDARI  
+freq             NaN           NaN          10102  
+mean    2.722931e+07  15432.399721            NaN  
+std     6.632614e+06   1751.854112            NaN  
+min     2.000000e+07  12347.000000            NaN  
+25%     2.195000e+07  14032.000000            NaN  
+50%     2.355000e+07  15382.000000            NaN  
+75%     3.265000e+07  17017.000000            NaN  
+max     4.515000e+07  18281.000000            NaN  
+
+=== Nilai Unik per Kolom ===
+id: 30139 unique values
+No Faktur: 1406 unique values
+Model: 69 unique values
+Kuantitas: 65 unique values
+Tanggal Pemesanan: 264 unique values
+Harga: 48 unique values
+ID Pelanggan: 999 unique values
+Tempat Tinggal: 41 unique values
+
+=== Missing Values ===
+id                    0
+No Faktur             0
+Model                 0
+Kuantitas             4
+Tanggal Pemesanan     0
+Harga                 0
+ID Pelanggan         28
+Tempat Tinggal        0
+dtype: int64
+
+=== Korelasi ===
+                    id  Kuantitas     Harga  ID Pelanggan
+id            1.000000   0.049354  0.001608     -0.116462
+Kuantitas     0.049354   1.000000 -0.004670      0.017901
+Harga         0.001608  -0.004670  1.000000     -0.010736
+ID Pelanggan -0.116462   0.017901 -0.010736      1.000000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ekplorasi-data">
+<h2>Ekplorasi Data<a class="headerlink" href="#ekplorasi-data" title="Link to this heading">#</a></h2>
+<p>Eksplorasi data adalah proses awal dalam analisis data untuk memahami karakteristik, distribusi, dan pola dalam dataset sehingga menghasilkan deskripsi statistik seperti mean, median, modus,standar deviasi,minimun, dan maskimum dengan menggunakan visualisasi data seperti grafik histogram scatter plot untuk melihat pola atau trend awal</p>
+<section id="menapilkan-data-dalam-bentuk-diagram">
+<h3>Menapilkan data dalam bentuk diagram<a class="headerlink" href="#menapilkan-data-dalam-bentuk-diagram" title="Link to this heading">#</a></h3>
+<p>Menapilkan data dalam bentuk diagram
+Proses merupakan proses untuk menampilkan data menjadi diagram sekaligus menetukan median mean dan modus dari setiap label atau fiturnya dan membedakan warna diagram menyesuaikan dengan banyaknya class yang ada.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="c1"># hapus spasi depan &amp; belakang</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;id&#39;, &#39;No Faktur&#39;, &#39;Model&#39;, &#39;Kuantitas&#39;, &#39;Tanggal Pemesanan&#39;, &#39;Harga&#39;,
+       &#39;ID Pelanggan&#39;, &#39;Tempat Tinggal&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Bersihkan kolom Harga</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Harga&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Harga&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;,&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Parse tanggal</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Tanggal Pemesanan&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Tanggal Pemesanan&quot;</span><span class="p">],</span>
+    <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># ------------------- VISUALISASI -------------------</span>
+
+<span class="c1"># 1. Jumlah Kuantitas per Model (Top 15)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">data1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Model&quot;</span><span class="p">)[</span><span class="s2">&quot;Kuantitas&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data1</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data1</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Top 15 Jumlah Kuantitas per Model&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Total Kuantitas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 2. Harga Rata-rata per Model (Top 15)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Model&quot;</span><span class="p">)[</span><span class="s2">&quot;Harga&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data2</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data2</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;mako&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Top 15 Harga Rata-rata per Model&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Harga (Rata-rata)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3. Pesanan per Daerah (Top 15)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Tempat Tinggal&quot;</span><span class="p">)[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">data3</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">data3</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;crest&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Top 15 Jumlah Pesanan per Daerah&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Pesanan&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Daerah&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 4. Trend Penjualan per Hari</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">data4</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Tanggal Pemesanan&quot;</span><span class="p">)[</span><span class="s2">&quot;Kuantitas&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data4</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Tanggal Pemesanan&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Kuantitas&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Trend Penjualan Harian&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal Pemesanan&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Total Kuantitas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:22: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(y=data1.index, x=data1.values, palette=&quot;viridis&quot;, legend=False)
+</pre></div>
+</div>
+<img alt="_images/c3845674bfcd1d3965bd83d2db12733bc8dfb278397b5634feb1e844d31f0b7c.png" src="_images/c3845674bfcd1d3965bd83d2db12733bc8dfb278397b5634feb1e844d31f0b7c.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:32: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(y=data2.index, x=data2.values, palette=&quot;mako&quot;, legend=False)
+</pre></div>
+</div>
+<img alt="_images/0647483ba5cc4f947576919513bafca4b9bfeaf4c1b2d1fcbeb4787de83054d9.png" src="_images/0647483ba5cc4f947576919513bafca4b9bfeaf4c1b2d1fcbeb4787de83054d9.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:42: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(y=data3.index, x=data3.values, palette=&quot;crest&quot;, legend=False)
+</pre></div>
+</div>
+<img alt="_images/1d4fe94dbca2feaae994e43f6d0b77c7719e2206d806a459775692f9dc93e7d3.png" src="_images/1d4fe94dbca2feaae994e43f6d0b77c7719e2206d806a459775692f9dc93e7d3.png" />
+<img alt="_images/e59b5a3f4ba801edd953b9ef813ab35e7007a99a0d2ab00f021c12b37579a5b0.png" src="_images/e59b5a3f4ba801edd953b9ef813ab35e7007a99a0d2ab00f021c12b37579a5b0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="indentifikasi-masalah-data">
+<h2>Indentifikasi Masalah Data<a class="headerlink" href="#indentifikasi-masalah-data" title="Link to this heading">#</a></h2>
+<p>merupakan proses memahami kualitas data dan memastikan bahwa data yang akan kita analisis atau gunakan dalam model machine learning sudah bersih, lengkap, dan sesuai format yang diharapkan. Hal yang perlu diperhatikan adalah:</p>
+<p>Missing Values: Menemukan data yang hilang atau tidak lengkap.</p>
+<p>Outliers: Mendeteksi nilai-nilai ekstrem yang mungkin merupakan kesalahan atau anomali.</p>
+<p>Duplikasi Data: Mengidentifikasi baris atau entri yang duplikat.</p>
+<p>Inkonsistensi: Memeriksa apakah ada ketidaksesuaian dalam format atau nilai data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+
+<span class="c1"># --- 1. Identifikasi Masalah Data ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Missing Values ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Duplikasi ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah duplikat: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Statistik Deskriptif ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># --- 2. Scatter Plot ---</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Scatter plot: Kuantitas vs Harga</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Kuantitas&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Harga&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatter Plot Kuantitas vs Harga&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Kuantitas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Harga&quot;</span><span class="p">)</span>
+
+<span class="c1"># Scatter plot: ID Pelanggan vs Harga</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ID Pelanggan&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Harga&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatter Plot ID Pelanggan vs Harga&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;ID Pelanggan&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Harga&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Missing Values ===
+id                     0
+No Faktur              0
+Model                  0
+Kuantitas              4
+Tanggal Pemesanan    144
+Harga                  0
+ID Pelanggan          28
+Tempat Tinggal         0
+dtype: int64
+
+=== Duplikasi ===
+Jumlah duplikat: 0
+
+=== Statistik Deskriptif ===
+                 id     Kuantitas              Tanggal Pemesanan  \
+count  30139.000000  30135.000000                          29995   
+mean   15070.000000      6.457242  2023-11-30 17:02:08.301383680   
+min        1.000000   -290.000000            2023-06-08 00:00:00   
+25%     7535.500000      1.000000            2023-09-01 00:00:00   
+50%    15070.000000      3.000000            2023-11-18 00:00:00   
+75%    22604.500000      8.000000            2024-03-02 00:00:00   
+max    30139.000000    240.000000            2024-06-06 00:00:00   
+std     8700.524218     10.937399                            NaN   
+
+              Harga  ID Pelanggan  
+count  3.013900e+04  30111.000000  
+mean   2.722931e+07  15432.399721  
+min    2.000000e+07  12347.000000  
+25%    2.195000e+07  14032.000000  
+50%    2.355000e+07  15382.000000  
+75%    3.265000e+07  17017.000000  
+max    4.515000e+07  18281.000000  
+std    6.632614e+06   1751.854112  
+</pre></div>
+</div>
+<img alt="_images/28b6594b1ffc0d4d2a869c27901e523c6f61bbd993b00ac60b4164aedb565511.png" src="_images/28b6594b1ffc0d4d2a869c27901e523c6f61bbd993b00ac60b4164aedb565511.png" />
+</div>
+</div>
+</section>
+<section id="validasi-data">
+<h2>Validasi data<a class="headerlink" href="#validasi-data" title="Link to this heading">#</a></h2>
+<p>Validasi data dilakukan untuk memastikan bahwa data yang digunakan bersih, lengkap, dan sesuai sebelum dianalisis atau divisualisasikan dan memastikan apakah data memcerminkan realitas atau fenomena yang ingin dipelajari</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-tipe-data">📊 Macam-macam Tipe Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-sifat-data">1. Ditinjau dari <strong>Sifat Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-sumber-data">2. Ditinjau dari <strong>Sumber Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-representasi-data">3. Ditinjau dari <strong>Representasi Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ditinjau-dari-struktur-data">4. Ditinjau dari <strong>Struktur Data</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">Pengumpulan Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-library-yang-dibutuhkan">Install lIbrary yang dibutuhkan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-data">Sampling data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiling-data">Profiling data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#korelasi-dan-asosiasi">Korelasi dan Asosiasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data">Ekplorasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menapilkan-data-dalam-bentuk-diagram">Menapilkan data dalam bentuk diagram</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indentifikasi-masalah-data">Indentifikasi Masalah Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validasi-data">Validasi data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
