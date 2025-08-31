@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'dataunderstan';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <link rel="prev" title="Bussiness Understanding" href="bisnisunderstan.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,6 +179,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bisnisunderstan.html">Bussiness Understanding</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding data</a></li>
 </ul>
 
@@ -550,14 +551,9 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-pac
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ydata_profiling
-  Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl.metadata (22 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scipy&lt;1.16,&gt;=1.4.1 (from ydata_profiling)
-  Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
-?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/62.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">62.0/62.0 kB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hRequirement already satisfied: pandas!=1.4.0,&lt;3.0,&gt;1.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.2.2)
+  Using cached ydata_profiling-4.16.1-py2.py3-none-any.whl.metadata (22 kB)
+Requirement already satisfied: scipy&lt;1.16,&gt;=1.4.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.15.3)
+Requirement already satisfied: pandas!=1.4.0,&lt;3.0,&gt;1.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.2.2)
 Requirement already satisfied: matplotlib&lt;=3.10,&gt;=3.5 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (3.10.0)
 Requirement already satisfied: pydantic&gt;=2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.11.7)
 Requirement already satisfied: PyYAML&lt;6.1,&gt;=5.0.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (6.0.2)
@@ -565,40 +561,36 @@ Requirement already satisfied: jinja2&lt;3.2,&gt;=2.11.1 in /usr/local/lib/pytho
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting visions&lt;0.8.2,&gt;=0.7.5 (from visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
-  Downloading visions-0.8.1-py3-none-any.whl.metadata (11 kB)
+  Using cached visions-0.8.1-py3-none-any.whl.metadata (11 kB)
 Requirement already satisfied: numpy&lt;2.2,&gt;=1.16.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.0.2)
-Collecting htmlmin==0.1.12 (from ydata_profiling)
-  Downloading htmlmin-0.1.12.tar.gz (19 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l?25hdone
+Requirement already satisfied: htmlmin==0.1.12 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.1.12)
 Collecting phik&lt;0.13,&gt;=0.11.1 (from ydata_profiling)
-  Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (5.6 kB)
+  Using cached phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (5.6 kB)
 Requirement already satisfied: requests&lt;3,&gt;=2.24.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.32.4)
 Requirement already satisfied: tqdm&lt;5,&gt;=4.48.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.67.1)
 Requirement already satisfied: seaborn&lt;0.14,&gt;=0.10.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.13.2)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting multimethod&lt;2,&gt;=1.4 (from ydata_profiling)
-  Downloading multimethod-1.12-py3-none-any.whl.metadata (9.6 kB)
+  Using cached multimethod-1.12-py3-none-any.whl.metadata (9.6 kB)
 Requirement already satisfied: statsmodels&lt;1,&gt;=0.13.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.14.5)
 Requirement already satisfied: typeguard&lt;5,&gt;=3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.4.4)
 Collecting imagehash==4.3.1 (from ydata_profiling)
-  Downloading ImageHash-4.3.1-py2.py3-none-any.whl.metadata (8.0 kB)
+  Using cached ImageHash-4.3.1-py2.py3-none-any.whl.metadata (8.0 kB)
 Requirement already satisfied: wordcloud&gt;=1.9.3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.9.4)
 Collecting dacite&gt;=1.8 (from ydata_profiling)
-  Downloading dacite-1.9.2-py3-none-any.whl.metadata (17 kB)
+  Using cached dacite-1.9.2-py3-none-any.whl.metadata (17 kB)
 Requirement already satisfied: numba&lt;=0.61,&gt;=0.56.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.60.0)
 Requirement already satisfied: PyWavelets in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (1.9.0)
 Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (11.3.0)
-Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2&lt;3.2,&gt;=2.11.1-&gt;ydata_profiling) (3.0.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2&lt;3.2,&gt;=2.11.1-&gt;ydata_profiling) (3.0.2)
 Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.3.3)
 Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (0.12.1)
 Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (4.59.1)
 Requirement already satisfied: kiwisolver&gt;=1.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.4.9)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (25.0)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (25.0)
 Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (3.2.3)
 Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (2.9.0.post0)
 Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/local/lib/python3.12/dist-packages (from numba&lt;=0.61,&gt;=0.56.0-&gt;ydata_profiling) (0.43.0)
@@ -616,74 +608,22 @@ Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.1
 Requirement already satisfied: patsy&gt;=0.5.6 in /usr/local/lib/python3.12/dist-packages (from statsmodels&lt;1,&gt;=0.13.2-&gt;ydata_profiling) (1.0.1)
 Requirement already satisfied: attrs&gt;=19.3.0 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (25.3.0)
 Requirement already satisfied: networkx&gt;=2.4 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (3.5)
+Requirement already satisfied: puremagic in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (1.30)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting puremagic (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
-  Downloading puremagic-1.30-py3-none-any.whl.metadata (5.8 kB)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.17.0)
-Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl (400 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/400.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━ <span class=" -Color -Color-Green">337.9/400.1 kB</span> <span class=" -Color -Color-Red">10.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">400.1/400.1 kB</span> <span class=" -Color -Color-Red">8.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading ImageHash-4.3.1-py2.py3-none-any.whl (296 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/296.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">296.5/296.5 kB</span> <span class=" -Color -Color-Red">22.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading dacite-1.9.2-py3-none-any.whl (16 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.17.0)
+Using cached ydata_profiling-4.16.1-py2.py3-none-any.whl (400 kB)
+Using cached ImageHash-4.3.1-py2.py3-none-any.whl (296 kB)
+Using cached dacite-1.9.2-py3-none-any.whl (16 kB)
+Using cached multimethod-1.12-py3-none-any.whl (10 kB)
+Using cached phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (679 kB)
+Using cached visions-0.8.1-py3-none-any.whl (105 kB)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading multimethod-1.12-py3-none-any.whl (10 kB)
-Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (679 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/679.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">679.7/679.7 kB</span> <span class=" -Color -Color-Red">39.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.3 MB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/37.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.1/37.3 MB</span> <span class=" -Color -Color-Red">154.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">12.2/37.3 MB</span> <span class=" -Color -Color-Red">188.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: multimethod, dacite, imagehash, visions, phik, ydata_profiling
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">19.0/37.3 MB</span> <span class=" -Color -Color-Red">196.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">25.5/37.3 MB</span> <span class=" -Color -Color-Red">189.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━ <span class=" -Color -Color-Green">32.0/37.3 MB</span> <span class=" -Color -Color-Red">187.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">186.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">32.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading visions-0.8.1-py3-none-any.whl (105 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/105.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">105.4/105.4 kB</span> <span class=" -Color -Color-Red">9.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading puremagic-1.30-py3-none-any.whl (43 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/43.3 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">43.3/43.3 kB</span> <span class=" -Color -Color-Red">4.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: htmlmin
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for htmlmin (setup.py) ... ?25l?25hdone
-  Created wheel for htmlmin: filename=htmlmin-0.1.12-py3-none-any.whl size=27081 sha256=0211844a0b3a552b02b0e423552378c29bf2a3df1242c6871b9f7df5b804b6ad
-  Stored in directory: /root/.cache/pip/wheels/5f/d4/d7/4189b07b5902ee9f3ce0dbb14909fbe8037c39d6c63ffd49c9
-Successfully built htmlmin
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: puremagic, htmlmin, scipy, multimethod, dacite, imagehash, visions, phik, ydata_profiling
-  Attempting uninstall: scipy
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: scipy 1.16.1
-    Uninstalling scipy-1.16.1:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled scipy-1.16.1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed dacite-1.9.2 imagehash-4.3.1 multimethod-1.12 phik-0.12.5 visions-0.8.1 ydata_profiling-4.16.1
 </pre></div>
 </div>
 </div>
@@ -712,6 +652,95 @@ Successfully built htmlmin
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-460715300.py:8: DeprecationWarning: load_dataset is deprecated and will be removed in a future version.
   df = kagglehub.load_dataset(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: Looks like you&#39;re using an outdated `kagglehub` version (installed: 0.3.12), please consider upgrading to the latest version (0.3.13).
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading from https://www.kaggle.com/api/v1/datasets/download/raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu?dataset_version_number=1&amp;file_name=Dataset PT Hasjrat Abadi.csv...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/199k [00:00&lt;?, ?B/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 199k/199k [00:00&lt;00:00, 52.1MB/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ParserError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="nn">/usr/local/lib/python3.12/dist-packages/kagglehub/pandas_datasets.py</span> in <span class="ni">load_pandas_dataset</span><span class="nt">(handle, path, pandas_kwargs, sql_query)</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">91</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">read_function</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>             <span class="o">*</span><span class="n">_build_args</span><span class="p">(</span><span class="n">read_function</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">sql_query</span><span class="p">),</span>
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1025</span> 
+<span class="ne">-&gt; </span><span class="mi">1026</span>     <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1027</span> 
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">625</span>     <span class="k">with</span> <span class="n">parser</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">626</span>         <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nrows</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span> 
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py</span> in <span class="ni">read</span><span class="nt">(self, nrows)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1922</span>                     <span class="n">col_dict</span><span class="p">,</span>
+<span class="ne">-&gt; </span><span class="mi">1923</span>                 <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>  <span class="c1"># type: ignore[attr-defined]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1924</span>                     <span class="n">nrows</span>
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/c_parser_wrapper.py</span> in <span class="ni">read</span><span class="nt">(self, nrows)</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">low_memory</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">234</span>                 <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">read_low_memory</span><span class="p">(</span><span class="n">nrows</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span>                 <span class="c1"># destructive to chunks</span>
+
+<span class="nn">parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader.read_low_memory</span><span class="nt">()</span>
+
+<span class="nn">parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader._read_rows</span><span class="nt">()</span>
+
+<span class="nn">parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader._tokenize_rows</span><span class="nt">()</span>
+
+<span class="nn">parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader._check_tokenize_status</span><span class="nt">()</span>
+
+<span class="nn">parsers.pyx</span> in <span class="ni">pandas._libs.parsers.raise_parser_error</span><span class="nt">()</span>
+
+<span class="ne">ParserError</span>: Error tokenizing data. C error: Expected 6 fields in line 166, saw 8
+
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-460715300.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Load dataset ke pandas dataframe (dengan encoding fallback)</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">df</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">KaggleDatasetAdapter</span><span class="o">.</span><span class="n">PANDAS</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="s2">&quot;raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu&quot;</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py</span> in <span class="ni">load_dataset</span><span class="nt">(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>         <span class="s2">&quot;load_dataset is deprecated and will be removed in a future version.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">176</span>     <span class="k">return</span> <span class="n">dataset_load</span><span class="p">(</span><span class="n">adapter</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pandas_kwargs</span><span class="o">=</span><span class="n">pandas_kwargs</span><span class="p">,</span> <span class="n">sql_query</span><span class="o">=</span><span class="n">sql_query</span><span class="p">,</span> <span class="n">hf_kwargs</span><span class="o">=</span><span class="n">hf_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span> 
+<span class="g g-Whitespace">    </span><span class="mi">178</span> 
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py</span> in <span class="ni">dataset_load</span><span class="nt">(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs, polars_frame_type, polars_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>             <span class="kn">import</span><span class="w"> </span><span class="nn">kagglehub.pandas_datasets</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span> 
+<span class="ne">--&gt; </span><span class="mi">141</span>             <span class="k">return</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">pandas_datasets</span><span class="o">.</span><span class="n">load_pandas_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>                 <span class="n">handle</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">pandas_kwargs</span><span class="o">=</span><span class="n">pandas_kwargs</span><span class="p">,</span> <span class="n">sql_query</span><span class="o">=</span><span class="n">sql_query</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>             <span class="p">)</span>
+
+<span class="nn">/usr/local/lib/python3.12/dist-packages/kagglehub/pandas_datasets.py</span> in <span class="ni">load_pandas_dataset</span><span class="nt">(handle, path, pandas_kwargs, sql_query)</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>         <span class="n">read_error_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error reading file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">97</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">read_error_message</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> 
+<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="k">return</span> <span class="n">result</span>
+
+<span class="ne">ValueError</span>: Error reading file: Error tokenizing data. C error: Expected 6 fields in line 166, saw 8
 </pre></div>
 </div>
 </div>
@@ -1125,12 +1154,12 @@ std    6.632614e+06   1751.854112
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="bisnisunderstan.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        <p class="prev-next-title">Bussiness Understanding</p>
       </div>
     </a>
 </div>

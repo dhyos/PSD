@@ -19,20 +19,118 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^
   File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1005, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 806, in _async_poll_for_reply
-    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 856, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-!pip install kagglehub[pandas-datasets]
-!pip install tabulate
-!pip install ydata_profiling
--------------------
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import kagglehub
+from kagglehub import KaggleDatasetAdapter
+
+# Nama file sesuai dataset Kaggle
+file_path = "Dataset PT Hasjrat Abadi.csv"
+
+# Load dataset ke pandas dataframe (dengan encoding fallback)
+df = kagglehub.load_dataset(
+    KaggleDatasetAdapter.PANDAS,
+    "raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu",
+    file_path,
+    pandas_kwargs={
+        "sep":';',
+        "encoding": "latin1"  # atau "ISO-8859-1" jika tetap error
+    }
+)
+
+
+------------------
+
+----- stderr -----
+/tmp/ipython-input-460715300.py:8: DeprecationWarning: load_dataset is deprecated and will be removed in a future version.
+  df = kagglehub.load_dataset(
+----- stdout -----
+Warning: Looks like you're using an outdated `kagglehub` version (installed: 0.3.12), please consider upgrading to the latest version (0.3.13).
+----- stdout -----
+Downloading from https://www.kaggle.com/api/v1/datasets/download/raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu?dataset_version_number=1&file_name=Dataset PT Hasjrat Abadi.csv...
+----- stderr -----
+  0%|          | 0.00/199k [00:00<?, ?B/s]
+----- stderr -----
+100%|██████████| 199k/199k [00:00<00:00, 52.1MB/s]
+----- stderr -----
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mParserError[0m                               Traceback (most recent call last)
+[0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/pandas_datasets.py[0m in [0;36mload_pandas_dataset[0;34m(handle, path, pandas_kwargs, sql_query)[0m
+[1;32m     90[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 91[0;31m         result = read_function(
+[0m[1;32m     92[0m             [0;34m*[0m[0m_build_args[0m[0;34m([0m[0mread_function[0m[0;34m,[0m [0mfilepath[0m[0;34m,[0m [0msql_query[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36mread_csv[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)[0m
+[1;32m   1025[0m [0;34m[0m[0m
+[0;32m-> 1026[0;31m     [0;32mreturn[0m [0m_read[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1027[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36m_read[0;34m(filepath_or_buffer, kwds)[0m
+[1;32m    625[0m     [0;32mwith[0m [0mparser[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 626[0;31m         [0;32mreturn[0m [0mparser[0m[0;34m.[0m[0mread[0m[0;34m([0m[0mnrows[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    627[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36mread[0;34m(self, nrows)[0m
+[1;32m   1922[0m                     [0mcol_dict[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1923[0;31m                 [0;34m)[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_engine[0m[0;34m.[0m[0mread[0m[0;34m([0m  [0;31m# type: ignore[attr-defined][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1924[0m                     [0mnrows[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/c_parser_wrapper.py[0m in [0;36mread[0;34m(self, nrows)[0m
+[1;32m    233[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0mlow_memory[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 234[0;31m                 [0mchunks[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_reader[0m[0;34m.[0m[0mread_low_memory[0m[0;34m([0m[0mnrows[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    235[0m                 [0;31m# destructive to chunks[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32mparsers.pyx[0m in [0;36mpandas._libs.parsers.TextReader.read_low_memory[0;34m()[0m
+
+[0;32mparsers.pyx[0m in [0;36mpandas._libs.parsers.TextReader._read_rows[0;34m()[0m
+
+[0;32mparsers.pyx[0m in [0;36mpandas._libs.parsers.TextReader._tokenize_rows[0;34m()[0m
+
+[0;32mparsers.pyx[0m in [0;36mpandas._libs.parsers.TextReader._check_tokenize_status[0;34m()[0m
+
+[0;32mparsers.pyx[0m in [0;36mpandas._libs.parsers.raise_parser_error[0;34m()[0m
+
+[0;31mParserError[0m: Error tokenizing data. C error: Expected 6 fields in line 166, saw 8
+
+
+The above exception was the direct cause of the following exception:
+
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m/tmp/ipython-input-460715300.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m      6[0m [0;34m[0m[0m
+[1;32m      7[0m [0;31m# Load dataset ke pandas dataframe (dengan encoding fallback)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 8[0;31m df = kagglehub.load_dataset(
+[0m[1;32m      9[0m     [0mKaggleDatasetAdapter[0m[0;34m.[0m[0mPANDAS[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     10[0m     [0;34m"raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py[0m in [0;36mload_dataset[0;34m(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs)[0m
+[1;32m    174[0m         [0;34m"load_dataset is deprecated and will be removed in a future version."[0m[0;34m,[0m [0mDeprecationWarning[0m[0;34m,[0m [0mstacklevel[0m[0;34m=[0m[0;36m2[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    175[0m     )
+[0;32m--> 176[0;31m     [0;32mreturn[0m [0mdataset_load[0m[0;34m([0m[0madapter[0m[0;34m,[0m [0mhandle[0m[0;34m,[0m [0mpath[0m[0;34m,[0m [0mpandas_kwargs[0m[0;34m=[0m[0mpandas_kwargs[0m[0;34m,[0m [0msql_query[0m[0;34m=[0m[0msql_query[0m[0;34m,[0m [0mhf_kwargs[0m[0;34m=[0m[0mhf_kwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    177[0m [0;34m[0m[0m
+[1;32m    178[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py[0m in [0;36mdataset_load[0;34m(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs, polars_frame_type, polars_kwargs)[0m
+[1;32m    139[0m             [0;32mimport[0m [0mkagglehub[0m[0;34m.[0m[0mpandas_datasets[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    140[0m [0;34m[0m[0m
+[0;32m--> 141[0;31m             return kagglehub.pandas_datasets.load_pandas_dataset(
+[0m[1;32m    142[0m                 [0mhandle[0m[0;34m,[0m [0mpath[0m[0;34m,[0m [0mpandas_kwargs[0m[0;34m=[0m[0mpandas_kwargs[0m[0;34m,[0m [0msql_query[0m[0;34m=[0m[0msql_query[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    143[0m             )
+
+[0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/pandas_datasets.py[0m in [0;36mload_pandas_dataset[0;34m(handle, path, pandas_kwargs, sql_query)[0m
+[1;32m     95[0m     [0;32mexcept[0m [0mException[0m [0;32mas[0m [0me[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     96[0m         [0mread_error_message[0m [0;34m=[0m [0;34mf"Error reading file: {e}"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 97[0;31m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0mread_error_message[0m[0;34m)[0m [0;32mfrom[0m [0me[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     98[0m [0;34m[0m[0m
+[1;32m     99[0m     [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mValueError[0m: Error reading file: Error tokenizing data. C error: Expected 6 fields in line 166, saw 8
+
 
