@@ -46,16 +46,14 @@ df = kagglehub.load_dataset(
 ------------------
 
 ----- stderr -----
-/tmp/ipython-input-460715300.py:8: DeprecationWarning: load_dataset is deprecated and will be removed in a future version.
+/tmp/ipython-input-460715300.py:8: DeprecationWarning: Use dataset_load() instead of load_dataset(). load_dataset() will be removed in a future version.
   df = kagglehub.load_dataset(
------ stdout -----
-Warning: Looks like you're using an outdated `kagglehub` version (installed: 0.3.12), please consider upgrading to the latest version (0.3.13).
 ----- stdout -----
 Downloading from https://www.kaggle.com/api/v1/datasets/download/raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu?dataset_version_number=1&file_name=Dataset PT Hasjrat Abadi.csv...
 ----- stderr -----
   0%|          | 0.00/199k [00:00<?, ?B/s]
 ----- stderr -----
-100%|██████████| 199k/199k [00:00<00:00, 52.1MB/s]
+100%|██████████| 199k/199k [00:00<00:00, 60.5MB/s]
 ----- stderr -----
 
 ------------------
@@ -111,14 +109,14 @@ The above exception was the direct cause of the following exception:
 [1;32m     10[0m     [0;34m"raflyahmadzainur/dataset-pt-hasjrat-abadi-lapulu"[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py[0m in [0;36mload_dataset[0;34m(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs)[0m
-[1;32m    174[0m         [0;34m"load_dataset is deprecated and will be removed in a future version."[0m[0;34m,[0m [0mDeprecationWarning[0m[0;34m,[0m [0mstacklevel[0m[0;34m=[0m[0;36m2[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    175[0m     )
-[0;32m--> 176[0;31m     [0;32mreturn[0m [0mdataset_load[0m[0;34m([0m[0madapter[0m[0;34m,[0m [0mhandle[0m[0;34m,[0m [0mpath[0m[0;34m,[0m [0mpandas_kwargs[0m[0;34m=[0m[0mpandas_kwargs[0m[0;34m,[0m [0msql_query[0m[0;34m=[0m[0msql_query[0m[0;34m,[0m [0mhf_kwargs[0m[0;34m=[0m[0mhf_kwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    177[0m [0;34m[0m[0m
-[1;32m    178[0m [0;34m[0m[0m
+[1;32m    176[0m         [0mstacklevel[0m[0;34m=[0m[0;36m2[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    177[0m     )
+[0;32m--> 178[0;31m     [0;32mreturn[0m [0mdataset_load[0m[0;34m([0m[0madapter[0m[0;34m,[0m [0mhandle[0m[0;34m,[0m [0mpath[0m[0;34m,[0m [0mpandas_kwargs[0m[0;34m=[0m[0mpandas_kwargs[0m[0;34m,[0m [0msql_query[0m[0;34m=[0m[0msql_query[0m[0;34m,[0m [0mhf_kwargs[0m[0;34m=[0m[0mhf_kwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    179[0m [0;34m[0m[0m
+[1;32m    180[0m [0;34m[0m[0m
 
 [0;32m/usr/local/lib/python3.12/dist-packages/kagglehub/datasets.py[0m in [0;36mdataset_load[0;34m(adapter, handle, path, pandas_kwargs, sql_query, hf_kwargs, polars_frame_type, polars_kwargs)[0m
-[1;32m    139[0m             [0;32mimport[0m [0mkagglehub[0m[0;34m.[0m[0mpandas_datasets[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    139[0m             [0;32mimport[0m [0mkagglehub[0m[0;34m.[0m[0mpandas_datasets[0m  [0;31m# noqa: PLC0415[0m[0;34m[0m[0;34m[0m[0m
 [1;32m    140[0m [0;34m[0m[0m
 [0;32m--> 141[0;31m             return kagglehub.pandas_datasets.load_pandas_dataset(
 [0m[1;32m    142[0m                 [0mhandle[0m[0;34m,[0m [0mpath[0m[0;34m,[0m [0mpandas_kwargs[0m[0;34m=[0m[0mpandas_kwargs[0m[0;34m,[0m [0msql_query[0m[0;34m=[0m[0msql_query[0m[0;34m[0m[0;34m[0m[0m
