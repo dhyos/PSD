@@ -1,0 +1,101 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Konfigurasi koneksi MySQL
+DB_HOST = "mysql-pendata23-175-mysqlpendata23-175.g.aivencloud.com"
+DB_PORT = 17974
+DB_NAME = "defaultdb"
+DB_USER = "avnadmin"
+DB_PASS = "AVNS_756YWhIqpe1WzSKsGNx"
+
+# Buat engine SQLAlchemy
+engine = create_engine(
+    f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
+
+# Query ambil data
+query = "SELECT * FROM irismysql.flowers ORDER BY id ASC;"
+dataMysql = pd.read_sql(query, engine)
+
+# Hapus baris header duplikat (jika ada)
+dataMysql = dataMysql[dataMysql["id"] != "id"]
+
+# Konversi kolom numerik ke tipe number
+for col in ["petal length", "petal width"]:
+    dataMysql[col] = pd.to_numeric(dataMysql[col], errors="coerce")
+
+print(dataMysql.head())
+
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m/tmp/ipython-input-3934222401.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     10[0m [0;34m[0m[0m
+[1;32m     11[0m [0;31m# Buat engine SQLAlchemy[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 12[0;31m engine = create_engine(
+[0m[1;32m     13[0m     [0;34mf"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     14[0m )
+
+[0;32m<string>[0m in [0;36mcreate_engine[0;34m(url, **kwargs)[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/sqlalchemy/util/deprecations.py[0m in [0;36mwarned[0;34m(fn, *args, **kwargs)[0m
+[1;32m    279[0m                         [0mstacklevel[0m[0;34m=[0m[0;36m3[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    280[0m                     )
+[0;32m--> 281[0;31m             [0;32mreturn[0m [0mfn[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m  [0;31m# type: ignore[no-any-return][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    282[0m [0;34m[0m[0m
+[1;32m    283[0m         [0mdoc[0m [0;34m=[0m [0mfn[0m[0;34m.[0m[0m__doc__[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m [0;32mand[0m [0mfn[0m[0;34m.[0m[0m__doc__[0m [0;32mor[0m [0;34m""[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/sqlalchemy/engine/create.py[0m in [0;36mcreate_engine[0;34m(url, **kwargs)[0m
+[1;32m    615[0m             [0;32mif[0m [0mk[0m [0;32min[0m [0mkwargs[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    616[0m                 [0mdbapi_args[0m[0;34m[[0m[0mk[0m[0;34m][0m [0;34m=[0m [0mpop_kwarg[0m[0;34m([0m[0mk[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 617[0;31m         [0mdbapi[0m [0;34m=[0m [0mdbapi_meth[0m[0;34m([0m[0;34m**[0m[0mdbapi_args[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    618[0m [0;34m[0m[0m
+[1;32m    619[0m     [0mdialect_args[0m[0;34m[[0m[0;34m"dbapi"[0m[0;34m][0m [0;34m=[0m [0mdbapi[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/sqlalchemy/dialects/mysql/pymysql.py[0m in [0;36mimport_dbapi[0;34m(cls)[0m
+[1;32m     87[0m     [0;34m@[0m[0mclassmethod[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     88[0m     [0;32mdef[0m [0mimport_dbapi[0m[0;34m([0m[0mcls[0m[0;34m)[0m [0;34m->[0m [0mDBAPIModule[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 89[0;31m         [0;32mreturn[0m [0m__import__[0m[0;34m([0m[0;34m"pymysql"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     90[0m [0;34m[0m[0m
+[1;32m     91[0m     [0;34m@[0m[0mlanghelpers[0m[0;34m.[0m[0mmemoized_property[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mModuleNotFoundError[0m: No module named 'pymysql'
+
+[0;31m---------------------------------------------------------------------------[0;32m
+NOTE: If your import is failing due to a missing package, you can
+manually install dependencies using either !pip or !apt.
+
+To view examples of installing some common dependencies, click the
+"Open Examples" button below.
+[0;31m---------------------------------------------------------------------------[0m
+
+

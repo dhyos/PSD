@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'dataunderstan';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="KNN dan Kmeans" href="outlierdanklastering.html" />
     <link rel="prev" title="Bussiness Understanding" href="bisnisunderstan.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,6 +184,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bisnisunderstan.html">Bussiness Understanding</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outlierdanklastering.html">KNN dan Kmeans</a></li>
 </ul>
 
     </div>
@@ -562,26 +564,45 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-pac
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tabulate in /usr/local/lib/python3.12/dist-packages (0.9.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ydata_profiling in /usr/local/lib/python3.12/dist-packages (4.16.1)
-Requirement already satisfied: scipy&lt;1.16,&gt;=1.4.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.15.3)
-Requirement already satisfied: pandas!=1.4.0,&lt;3.0,&gt;1.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.2.2)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ydata_profiling
+  Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl.metadata (22 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scipy&lt;1.16,&gt;=1.4.1 (from ydata_profiling)
+  Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/62.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">62.0/62.0 kB</span> <span class=" -Color -Color-Red">5.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: pandas!=1.4.0,&lt;3.0,&gt;1.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.2.2)
 Requirement already satisfied: matplotlib&lt;=3.10,&gt;=3.5 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (3.10.0)
 Requirement already satisfied: pydantic&gt;=2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.11.7)
 Requirement already satisfied: PyYAML&lt;6.1,&gt;=5.0.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (6.0.2)
 Requirement already satisfied: jinja2&lt;3.2,&gt;=2.11.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (3.1.6)
-Requirement already satisfied: visions&lt;0.8.2,&gt;=0.7.5 in /usr/local/lib/python3.12/dist-packages (from visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (0.8.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting visions&lt;0.8.2,&gt;=0.7.5 (from visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
+  Downloading visions-0.8.1-py3-none-any.whl.metadata (11 kB)
 Requirement already satisfied: numpy&lt;2.2,&gt;=1.16.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.0.2)
-Requirement already satisfied: htmlmin==0.1.12 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.1.12)
-Requirement already satisfied: phik&lt;0.13,&gt;=0.11.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.12.5)
+Collecting htmlmin==0.1.12 (from ydata_profiling)
+  Downloading htmlmin-0.1.12.tar.gz (19 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Preparing metadata (setup.py) ... ?25l?25hdone
+Collecting phik&lt;0.13,&gt;=0.11.1 (from ydata_profiling)
+  Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (5.6 kB)
 Requirement already satisfied: requests&lt;3,&gt;=2.24.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (2.32.4)
 Requirement already satisfied: tqdm&lt;5,&gt;=4.48.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.67.1)
 Requirement already satisfied: seaborn&lt;0.14,&gt;=0.10.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.13.2)
-Requirement already satisfied: multimethod&lt;2,&gt;=1.4 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.12)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting multimethod&lt;2,&gt;=1.4 (from ydata_profiling)
+  Downloading multimethod-1.12-py3-none-any.whl.metadata (9.6 kB)
 Requirement already satisfied: statsmodels&lt;1,&gt;=0.13.2 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.14.5)
 Requirement already satisfied: typeguard&lt;5,&gt;=3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.4.4)
-Requirement already satisfied: imagehash==4.3.1 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (4.3.1)
+Collecting imagehash==4.3.1 (from ydata_profiling)
+  Downloading ImageHash-4.3.1-py2.py3-none-any.whl.metadata (8.0 kB)
 Requirement already satisfied: wordcloud&gt;=1.9.3 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.9.4)
-Requirement already satisfied: dacite&gt;=1.8 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (1.9.2)
+Collecting dacite&gt;=1.8 (from ydata_profiling)
+  Downloading dacite-1.9.2-py3-none-any.whl.metadata (17 kB)
 Requirement already satisfied: numba&lt;=0.61,&gt;=0.56.0 in /usr/local/lib/python3.12/dist-packages (from ydata_profiling) (0.60.0)
 Requirement already satisfied: PyWavelets in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (1.9.0)
 Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from imagehash==4.3.1-&gt;ydata_profiling) (11.3.0)
@@ -594,7 +615,9 @@ Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.12/d
 Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (3.2.3)
 Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (2.9.0.post0)
 Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/local/lib/python3.12/dist-packages (from numba&lt;=0.61,&gt;=0.56.0-&gt;ydata_profiling) (0.43.0)
-Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas!=1.4.0,&lt;3.0,&gt;1.1-&gt;ydata_profiling) (2025.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas!=1.4.0,&lt;3.0,&gt;1.1-&gt;ydata_profiling) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas!=1.4.0,&lt;3.0,&gt;1.1-&gt;ydata_profiling) (2025.2)
 Requirement already satisfied: joblib&gt;=0.14.1 in /usr/local/lib/python3.12/dist-packages (from phik&lt;0.13,&gt;=0.11.1-&gt;ydata_profiling) (1.5.2)
 Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2-&gt;ydata_profiling) (0.7.0)
@@ -605,13 +628,71 @@ Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (3.10)
 Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (2.5.0)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3,&gt;=2.24.0-&gt;ydata_profiling) (2025.8.3)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: patsy&gt;=0.5.6 in /usr/local/lib/python3.12/dist-packages (from statsmodels&lt;1,&gt;=0.13.2-&gt;ydata_profiling) (1.0.1)
+Requirement already satisfied: patsy&gt;=0.5.6 in /usr/local/lib/python3.12/dist-packages (from statsmodels&lt;1,&gt;=0.13.2-&gt;ydata_profiling) (1.0.1)
 Requirement already satisfied: attrs&gt;=19.3.0 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (25.3.0)
 Requirement already satisfied: networkx&gt;=2.4 in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (3.5)
-Requirement already satisfied: puremagic in /usr/local/lib/python3.12/dist-packages (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling) (1.30)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.17.0)
+Collecting puremagic (from visions&lt;0.8.2,&gt;=0.7.5-&gt;visions[type_image_path]&lt;0.8.2,&gt;=0.7.5-&gt;ydata_profiling)
+  Downloading puremagic-1.30-py3-none-any.whl.metadata (5.8 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;=3.10,&gt;=3.5-&gt;ydata_profiling) (1.17.0)
+Downloading ydata_profiling-4.16.1-py2.py3-none-any.whl (400 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/400.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">400.1/400.1 kB</span> <span class=" -Color -Color-Red">30.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading ImageHash-4.3.1-py2.py3-none-any.whl (296 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/296.5 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">296.5/296.5 kB</span> <span class=" -Color -Color-Red">27.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading dacite-1.9.2-py3-none-any.whl (16 kB)
+Downloading multimethod-1.12-py3-none-any.whl (10 kB)
+Downloading phik-0.12.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (679 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/679.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">679.7/679.7 kB</span> <span class=" -Color -Color-Red">55.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.3 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/37.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">6.6/37.3 MB</span> <span class=" -Color -Color-Red">197.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">13.3/37.3 MB</span> <span class=" -Color -Color-Red">195.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">19.9/37.3 MB</span> <span class=" -Color -Color-Red">192.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">24.1/37.3 MB</span> <span class=" -Color -Color-Red">152.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━ <span class=" -Color -Color-Green">31.1/37.3 MB</span> <span class=" -Color -Color-Red">175.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">213.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">213.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">213.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">213.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">37.3/37.3 MB</span> <span class=" -Color -Color-Red">52.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading visions-0.8.1-py3-none-any.whl (105 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/105.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">105.4/105.4 kB</span> <span class=" -Color -Color-Red">9.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading puremagic-1.30-py3-none-any.whl (43 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/43.3 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">43.3/43.3 kB</span> <span class=" -Color -Color-Red">4.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: htmlmin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for htmlmin (setup.py) ... ?25l?25hdone
+  Created wheel for htmlmin: filename=htmlmin-0.1.12-py3-none-any.whl size=27081 sha256=2b5e8a7cf57f5f9061a6464c8ee47b2b20c14a45ff99ac1320fd535b966d969e
+  Stored in directory: /root/.cache/pip/wheels/5f/d4/d7/4189b07b5902ee9f3ce0dbb14909fbe8037c39d6c63ffd49c9
+Successfully built htmlmin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: puremagic, htmlmin, scipy, multimethod, dacite, imagehash, visions, phik, ydata_profiling
+  Attempting uninstall: scipy
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: scipy 1.16.1
+    Uninstalling scipy-1.16.1:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled scipy-1.16.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed dacite-1.9.2 htmlmin-0.1.12 imagehash-4.3.1 multimethod-1.12 phik-0.12.5 puremagic-1.30 scipy-1.15.3 visions-0.8.1 ydata_profiling-4.16.1
 </pre></div>
 </div>
 </div>
@@ -648,7 +729,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-pac
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/199k [00:00&lt;?, ?B/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 199k/199k [00:00&lt;00:00, 60.5MB/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 199k/199k [00:00&lt;00:00, 70.1MB/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -885,82 +966,6 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-pac
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Info Dataset ===
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 30139 entries, 0 to 30138
-Data columns (total 8 columns):
- #   Column             Non-Null Count  Dtype  
----  ------             --------------  -----  
- 0   id                 30139 non-null  int64  
- 1   No Faktur          30139 non-null  object 
- 2   Model              30139 non-null  object 
- 3   Kuantitas          30135 non-null  float64
- 4   Tanggal Pemesanan  30139 non-null  object 
- 5   Harga              30139 non-null  float64
- 6   ID Pelanggan       30111 non-null  float64
- 7   Tempat Tinggal     30139 non-null  object 
-dtypes: float64(3), int64(1), object(4)
-memory usage: 1.8+ MB
-None
-
-=== Statistik Deskriptif ===
-                  id No Faktur      Model     Kuantitas Tanggal Pemesanan  \
-count   30139.000000     30139      30139  30135.000000             30139   
-unique           NaN      1406         69           NaN               264   
-top              NaN    537434  MIO M3 CW           NaN        07/10/2023   
-freq             NaN       675       7100           NaN              1895   
-mean    15070.000000       NaN        NaN      6.457242               NaN   
-std      8700.524218       NaN        NaN     10.937399               NaN   
-min         1.000000       NaN        NaN   -290.000000               NaN   
-25%      7535.500000       NaN        NaN      1.000000               NaN   
-50%     15070.000000       NaN        NaN      3.000000               NaN   
-75%     22604.500000       NaN        NaN      8.000000               NaN   
-max     30139.000000       NaN        NaN    240.000000               NaN   
-
-               Harga  ID Pelanggan Tempat Tinggal  
-count   3.013900e+04  30111.000000          30139  
-unique           NaN           NaN             41  
-top              NaN           NaN   KOTA KENDARI  
-freq             NaN           NaN          10102  
-mean    2.722931e+07  15432.399721            NaN  
-std     6.632614e+06   1751.854112            NaN  
-min     2.000000e+07  12347.000000            NaN  
-25%     2.195000e+07  14032.000000            NaN  
-50%     2.355000e+07  15382.000000            NaN  
-75%     3.265000e+07  17017.000000            NaN  
-max     4.515000e+07  18281.000000            NaN  
-
-=== Nilai Unik per Kolom ===
-id: 30139 unique values
-No Faktur: 1406 unique values
-Model: 69 unique values
-Kuantitas: 65 unique values
-Tanggal Pemesanan: 264 unique values
-Harga: 48 unique values
-ID Pelanggan: 999 unique values
-Tempat Tinggal: 41 unique values
-
-=== Missing Values ===
-id                    0
-No Faktur             0
-Model                 0
-Kuantitas             4
-Tanggal Pemesanan     0
-Harga                 0
-ID Pelanggan         28
-Tempat Tinggal        0
-dtype: int64
-
-=== Korelasi ===
-                    id  Kuantitas     Harga  ID Pelanggan
-id            1.000000   0.049354  0.001608     -0.116462
-Kuantitas     0.049354   1.000000 -0.004670      0.017901
-Harga         0.001608  -0.004670  1.000000     -0.010736
-ID Pelanggan -0.116462   0.017901 -0.010736      1.000000
-</pre></div>
-</div>
-</div>
 </div>
 <section id="melihat-tipe-data-pada-power-bi">
 <h3>Melihat Tipe data pada Power BI<a class="headerlink" href="#melihat-tipe-data-pada-power-bi" title="Link to this heading">#</a></h3>
@@ -979,13 +984,6 @@ Proses merupakan proses untuk menampilkan data menjadi diagram sekaligus menetuk
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="c1"># hapus spasi depan &amp; belakang</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;id&#39;, &#39;No Faktur&#39;, &#39;Model&#39;, &#39;Kuantitas&#39;, &#39;Tanggal Pemesanan&#39;, &#39;Harga&#39;,
-       &#39;ID Pelanggan&#39;, &#39;Tempat Tinggal&#39;],
-      dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -1053,33 +1051,6 @@ Proses merupakan proses untuk menampilkan data menjadi diagram sekaligus menetuk
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:22: FutureWarning: 
-
-Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
-
-  sns.barplot(y=data1.index, x=data1.values, palette=&quot;viridis&quot;, legend=False)
-</pre></div>
-</div>
-<img alt="_images/c3845674bfcd1d3965bd83d2db12733bc8dfb278397b5634feb1e844d31f0b7c.png" src="_images/c3845674bfcd1d3965bd83d2db12733bc8dfb278397b5634feb1e844d31f0b7c.png" />
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:32: FutureWarning: 
-
-Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
-
-  sns.barplot(y=data2.index, x=data2.values, palette=&quot;mako&quot;, legend=False)
-</pre></div>
-</div>
-<img alt="_images/0647483ba5cc4f947576919513bafca4b9bfeaf4c1b2d1fcbeb4787de83054d9.png" src="_images/0647483ba5cc4f947576919513bafca4b9bfeaf4c1b2d1fcbeb4787de83054d9.png" />
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-4275136745.py:42: FutureWarning: 
-
-Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
-
-  sns.barplot(y=data3.index, x=data3.values, palette=&quot;crest&quot;, legend=False)
-</pre></div>
-</div>
-<img alt="_images/1d4fe94dbca2feaae994e43f6d0b77c7719e2206d806a459775692f9dc93e7d3.png" src="_images/1d4fe94dbca2feaae994e43f6d0b77c7719e2206d806a459775692f9dc93e7d3.png" />
-<img alt="_images/e59b5a3f4ba801edd953b9ef813ab35e7007a99a0d2ab00f021c12b37579a5b0.png" src="_images/e59b5a3f4ba801edd953b9ef813ab35e7007a99a0d2ab00f021c12b37579a5b0.png" />
-</div>
 </div>
 </section>
 </section>
@@ -1128,45 +1099,6 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Missing Values ===
-id                     0
-No Faktur              0
-Model                  0
-Kuantitas              4
-Tanggal Pemesanan    144
-Harga                  0
-ID Pelanggan          28
-Tempat Tinggal         0
-dtype: int64
-
-=== Duplikasi ===
-Jumlah duplikat: 0
-
-=== Statistik Deskriptif ===
-                 id     Kuantitas              Tanggal Pemesanan  \
-count  30139.000000  30135.000000                          29995   
-mean   15070.000000      6.457242  2023-11-30 17:02:08.301383680   
-min        1.000000   -290.000000            2023-06-08 00:00:00   
-25%     7535.500000      1.000000            2023-09-01 00:00:00   
-50%    15070.000000      3.000000            2023-11-18 00:00:00   
-75%    22604.500000      8.000000            2024-03-02 00:00:00   
-max    30139.000000    240.000000            2024-06-06 00:00:00   
-std     8700.524218     10.937399                            NaN   
-
-              Harga  ID Pelanggan  
-count  3.013900e+04  30111.000000  
-mean   2.722931e+07  15432.399721  
-min    2.000000e+07  12347.000000  
-25%    2.195000e+07  14032.000000  
-50%    2.355000e+07  15382.000000  
-75%    3.265000e+07  17017.000000  
-max    4.515000e+07  18281.000000  
-std    6.632614e+06   1751.854112  
-</pre></div>
-</div>
-<img alt="_images/28b6594b1ffc0d4d2a869c27901e523c6f61bbd993b00ac60b4164aedb565511.png" src="_images/28b6594b1ffc0d4d2a869c27901e523c6f61bbd993b00ac60b4164aedb565511.png" />
 </div>
 </div>
 <section id="indentifikasi-masalah-data-pada-power-bi">
@@ -1289,6 +1221,15 @@ IQR sering dipakai untuk mendeteksi outlier, dengan menentukan batas bawah dan b
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Bussiness Understanding</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="outlierdanklastering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">KNN dan Kmeans</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
