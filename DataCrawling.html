@@ -396,6 +396,24 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penambahan-fitur-temporal-konteks-kalender">2. Penambahan Fitur Temporal (Konteks Kalender)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembuatan-fitur-siklik-konteks-berulang">3. Pembuatan Fitur Siklik (Konteks Berulang)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-modeling-dengan-knn-regresion">Melakukan modeling dengan KNN regresion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implikasi-dari-pilihan-ini">Implikasi dari Pilihan Ini</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-shuffle-false-sangat-penting">Mengapa <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> Sangat Penting?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-ini-sangat-penting-untuk-knn">Mengapa Ini Sangat Penting untuk KNN?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-pada-data-test-x-test-scaled">1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-pada-data-train-x-train-scaled">2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-time-series-aktual-vs-prediksi">1. Plot Time Series (Aktual vs. Prediksi)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-prediksi-vs-aktual">2. Scatter Plot (Prediksi vs. Aktual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-plot-plot-sisaan">1. Residual Plot (Plot Sisaan)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-distribusi-residual">2. Histogram Distribusi Residual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-q-plot-cek-normalitas">3. Q-Q Plot (Cek Normalitas)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-mencari-k-optimal">Mengapa Mencari ‘k’ Optimal?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-kita-menemukannya">Bagaimana Kita Menemukannya?</a></li>
 </ul>
             </nav>
         </div>
@@ -431,10 +449,10 @@ Requirement already satisfied: numpy&gt;=1.17.0 in /usr/local/lib/python3.12/dis
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting xarray&lt;2025.01.2,&gt;=0.12.3 (from openeo)
   Downloading xarray-2025.1.1-py3-none-any.whl.metadata (11 kB)
 Requirement already satisfied: pandas&gt;0.20.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.2.2)
-Collecting pystac&gt;=1.5.0 (from openeo)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pystac&gt;=1.5.0 (from openeo)
+  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
 Collecting deprecated&gt;=1.2.12 (from openeo)
   Downloading Deprecated-1.2.18-py2.py3-none-any.whl.metadata (5.7 kB)
 </pre></div>
@@ -449,22 +467,23 @@ Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/d
 Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (2025.10.5)
 Requirement already satisfied: packaging&gt;=23.2 in /usr/local/lib/python3.12/dist-packages (from xarray&lt;2025.01.2,&gt;=0.12.3-&gt;openeo) (25.0)
 Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;0.20.0-&gt;openeo) (1.17.0)
+Downloading openeo-0.45.0-py3-none-any.whl (335 kB)
+?25l
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading openeo-0.45.0-py3-none-any.whl (335 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/335.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺ <span class=" -Color -Color-Green">327.7/335.1 kB</span> <span class=" -Color -Color-Red">11.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">335.1/335.1 kB</span> <span class=" -Color -Color-Red">8.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/335.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺ <span class=" -Color -Color-Green">327.7/335.1 kB</span> <span class=" -Color -Color-Red">9.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">335.1/335.1 kB</span> <span class=" -Color -Color-Red">6.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hDownloading Deprecated-1.2.18-py2.py3-none-any.whl (10.0 kB)
 Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/207.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">207.7/207.7 kB</span> <span class=" -Color -Color-Red">16.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">207.7/207.7 kB</span> <span class=" -Color -Color-Red">12.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hDownloading xarray-2025.1.1-py3-none-any.whl (1.2 MB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.2/1.2 MB</span> <span class=" -Color -Color-Red">43.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.2/1.2 MB</span> <span class=" -Color -Color-Red">40.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hDownloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (88 kB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/88.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">88.0/88.0 kB</span> <span class=" -Color -Color-Red">7.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">88.0/88.0 kB</span> <span class=" -Color -Color-Red">6.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25h
 </pre></div>
 </div>
@@ -477,10 +496,10 @@ Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: xarray
     Found existing installation: xarray 2025.10.1
-    Uninstalling xarray-2025.10.1:
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled xarray-2025.10.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Uninstalling xarray-2025.10.1:
+      Successfully uninstalled xarray-2025.10.1
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed deprecated-1.2.18 openeo-0.45.0 pystac-1.14.1 wrapt-1.17.3 xarray-2025.1.1
@@ -508,7 +527,7 @@ Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZRZO-CZKY" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZRZO-CZKY" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZRZO-CZKY</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=ZRZO-CZKY');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html"><code>[##################################---]</code> ⌛ Authorization pending</div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=KCXK-QFLS" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=KCXK-QFLS" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=KCXK-QFLS</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=KCXK-QFLS');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html"><code>[##################################---]</code> ⌛ Authorization pending</div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="nn">/tmp/ipython-input-1507458264.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Connect to openEO backend</span>
@@ -1696,8 +1715,634 @@ Kolom target: NO2
 </div>
 </div>
 <ol class="arabic simple" start="5">
-<li><p>Pemisahan Fitur dan Target</p></li>
+<li><p>Pemisahan Fitur dan Target
+Ini adalah langkah <strong>pemilihan fitur (<em>feature selection</em>)</strong> yang sangat spesifik dan menentukan.</p></li>
 </ol>
+<p>Anda secara sadar menyederhanakan model untuk fokus secara eksklusif pada <strong>pola autoregresif</strong> data—yaitu, memprediksi nilai NO2 di masa depan <em>hanya</em> berdasarkan nilai NO2 di masa lalu.</p>
+</section>
+<hr class="docutils" />
+<section id="implikasi-dari-pilihan-ini">
+<h2>Implikasi dari Pilihan Ini<a class="headerlink" href="#implikasi-dari-pilihan-ini" title="Link to this heading">#</a></h2>
+<p>Dengan membuang semua fitur temporal dan siklik (<code class="docutils literal notranslate"><span class="pre">dayofweek</span></code>, <code class="docutils literal notranslate"><span class="pre">month_sin</span></code>, dll.), Anda membuat model yang “buta” terhadap konteks kalender. Model Anda tidak akan tahu perbedaan antara:</p>
+<ul class="simple">
+<li><p><strong>Hari Kerja vs. Akhir Pekan:</strong> Model tidak bisa membedakan apakah <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> (kemarin) adalah hari Minggu (lalu lintas rendah) atau Senin (lalu lintas tinggi).</p></li>
+<li><p><strong>Musim Panas vs. Musim Dingin:</strong> Model tidak tahu apakah data berasal dari bulan Januari (saat NO2 mungkin lebih tinggi) atau Juli (saat NO2 mungkin lebih rendah).</p></li>
+</ul>
+<p>Model ini dipaksa untuk menemukan pola <em>hanya</em> dari momentum internal data (nilai-nilai lag), tanpa bantuan konteks eksternal kapan kejadian itu terjadi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">target_col</span><span class="p">,</span>
+        <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;day&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dayofweek&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;month&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dayofyear&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;month_sin&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;month_cos&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;day_sin&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;day_cos&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_col</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape X: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape y: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kolom fitur yang digunakan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape X: (266, 7)
+Shape y: (266,)
+
+Kolom fitur yang digunakan:
+[&#39;NO2_lag_1&#39;, &#39;NO2_lag_2&#39;, &#39;NO2_lag_3&#39;, &#39;NO2_lag_4&#39;, &#39;NO2_lag_5&#39;, &#39;NO2_lag_6&#39;, &#39;NO2_lag_7&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Split Data Train dan Test
+Ini adalah langkah krusial untuk mengevaluasi model <em>time series</em> secara jujur ⏱️.</p></li>
+</ol>
+<p>Kita membagi data menjadi dua bagian:</p>
+<ol class="arabic simple">
+<li><p><strong>Data Training (80% pertama):</strong> Ini adalah data “masa lalu” yang kita gunakan untuk <strong>melatih</strong> model.</p></li>
+<li><p><strong>Data Testing (20% terakhir):</strong> Ini adalah data “masa depan” yang kita <strong>sembunyikan</strong> dari model. Model akan diuji seberapa baik ia bisa memprediksi data ini.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="mengapa-shuffle-false-sangat-penting">
+<h3>Mengapa <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> Sangat Penting?<a class="headerlink" href="#mengapa-shuffle-false-sangat-penting" title="Link to this heading">#</a></h3>
+<p>Dalam <em>time series</em>, <strong>urutan data adalah segalanya</strong>. Anda harus selalu melatih model pada data masa lalu untuk memprediksi data di masa depan.</p>
+<ul class="simple">
+<li><p><strong>Apa yang terjadi jika <code class="docutils literal notranslate"><span class="pre">shuffle=True</span></code> (diacak)?</strong> 🔀
+Model Anda bisa secara tidak sengaja dilatih menggunakan data dari hari Jumat untuk memprediksi data hari Selasa. Ini adalah “kebocoran data” (<em>data leakage</em>), karena model melihat data dari masa depan saat berlatih. Akibatnya, performa model akan terlihat sangat bagus saat diuji, tetapi itu bohong.</p></li>
+<li><p><strong>Dengan <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> (tidak diacak):</strong>
+Anda memastikan data terbelah secara kronologis. Model hanya akan dilatih pada 80% data terawal (misalnya, data Januari-September) dan diuji pada 20% data terakhir (data Oktober-Desember). Ini secara akurat mensimulasikan skenario <em>forecasting</em> di dunia nyata.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape data train:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X_train: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape data test:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X_test: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape data train:
+X_train: (212, 7), y_train: (212,)
+
+Shape data test:
+X_test: (54, 7), y_test: (54,)
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Normalisasi Data
+Ini adalah langkah yang <strong>wajib</strong> dilakukan untuk KNN 📏.</p></li>
+</ol>
+<p>Kita menerapkan <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> pada data fitur kita (baik data latih maupun data uji). Proses ini mengubah setiap fitur sehingga memiliki <strong>rata-rata (mean) 0</strong> dan <strong>standar deviasi 1</strong>.</p>
+</section>
+</section>
+<section id="mengapa-ini-sangat-penting-untuk-knn">
+<h2>Mengapa Ini Sangat Penting untuk KNN?<a class="headerlink" href="#mengapa-ini-sangat-penting-untuk-knn" title="Link to this heading">#</a></h2>
+<p>KNN adalah <strong>algoritma berbasis jarak</strong> (<em>distance-based algorithm</em>). Ia bekerja dengan mengukur jarak (seperti jarak Euclidean) antar titik data untuk menemukan “tetangga terdekat”.</p>
+<ul class="simple">
+<li><p><strong>Masalah:</strong> Bayangkan Anda memiliki dua fitur <em>lag</em>. Fitur <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> memiliki rentang nilai antara 50-100, sementara <code class="docutils literal notranslate"><span class="pre">lag_7</span></code> memiliki rentang nilai antara 10-20. Tanpa normalisasi, angka-angka besar dari <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> akan <strong>mendominasi</strong> perhitungan jarak. Model akan salah mengira bahwa <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> jauh lebih penting daripada <code class="docutils literal notranslate"><span class="pre">lag_7</span></code>, hanya karena angkanya lebih besar.</p></li>
+<li><p><strong>Solusi:</strong> <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> “menyamakan kedudukan” semua fitur. Ini memastikan bahwa setiap fitur (setiap <em>lag</em>) memberikan kontribusi yang adil dan seimbang dalam menentukan siapa “tetangga” terdekat yang sebenarnya.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil dinormalisasi&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean X_train_scaled: </span><span class="si">{</span><span class="n">X_train_scaled</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std X_train_scaled: </span><span class="si">{</span><span class="n">X_train_scaled</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data berhasil dinormalisasi
+Mean X_train_scaled: -0.000000
+Std X_train_scaled: 1.000000
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Training Model KNN Regression
+Ini adalah langkah di mana Anda <strong>membuat “otak”</strong> 🧠 dari model Anda dan memberinya serangkaian aturan awal.</p></li>
+</ol>
+<p>Anda menginisialisasi model <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor</span></code> dengan tiga pengaturan dasar:</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">k=3</span> <span class="pre">neighbors</span></code></strong>: Ini adalah aturan terpenting. Saat model diminta memprediksi nilai NO2 untuk hari baru, ia akan mencari <strong>5 data latih (“tetangga”)</strong> yang memiliki fitur <em>lag</em> paling mirip (paling dekat) dengan hari baru tersebut.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">uniform</span> <span class="pre">weights</span></code></strong>: Ini adalah aturan “demokrasi murni”. Setelah 5 tetangga ditemukan, prediksi akhirnya adalah <strong>rata-rata sederhana</strong> dari nilai NO2 kelima tetangga tersebut. Setiap tetangga memiliki “hak suara” yang sama, tidak peduli seberapa dekat atau jauhnya (selama mereka ada di 5 besar).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">euclidean</span> <span class="pre">distance</span></code></strong>: Ini adalah aturan untuk mengukur “kedekatan”. Model akan menghitung jarak lurus (seperti menggunakan penggaris 📏) antara titik data baru dan semua titik data latih untuk menemukan 5 tetangga terdekat.</p></li>
+</ol>
+<p>Secara singkat, Anda membuat model yang akan memprediksi nilai baru dengan cara mengambil rata-rata dari 5 tetangga terdekatnya, di mana semua tetangga dianggap sama pentingnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knn_model</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+
+<span class="n">knn_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model KNN Regression berhasil ditraining&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah neighbors (k): </span><span class="si">{</span><span class="n">knn_model</span><span class="o">.</span><span class="n">n_neighbors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weights: </span><span class="si">{</span><span class="n">knn_model</span><span class="o">.</span><span class="n">weights</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metric: </span><span class="si">{</span><span class="n">knn_model</span><span class="o">.</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model KNN Regression berhasil ditraining
+Jumlah neighbors (k): 3
+Weights: uniform
+Metric: euclidean
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="9">
+<li><p>Prediksi pada Data Test</p></li>
+</ol>
+<p>Ini adalah langkah “pengujian” 📝. Setelah model Anda dilatih (belajar dari data <em>training</em>), sekarang saatnya kita menggunakannya untuk membuat tebakan (<em>prediksi</em>).</p>
+<p>Proses ini dilakukan pada <strong>dua set data</strong> untuk dua tujuan berbeda:</p>
+<hr class="docutils" />
+<section id="prediksi-pada-data-test-x-test-scaled">
+<h3>1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)<a class="headerlink" href="#prediksi-pada-data-test-x-test-scaled" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tujuan:</strong> <strong>Evaluasi Kinerja (Seberapa Akurat?)</strong></p></li>
+<li><p>Ini adalah pengujian yang paling penting. Kita memberikan model data “baru” yang belum pernah dilihat sebelumnya (20% data terakhir) dan memintanya untuk menebak nilai NO2. Hasil prediksi ini akan kita bandingkan dengan nilai NO2 yang <em>sebenarnya</em> (<code class="docutils literal notranslate"><span class="pre">y_test</span></code>) untuk menghitung seberapa besar <em>error</em> atau akurasi <em>forecast</em> kita.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="prediksi-pada-data-train-x-train-scaled">
+<h3>2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)<a class="headerlink" href="#prediksi-pada-data-train-x-train-scaled" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tujuan:</strong> <strong>Diagnosis Model (Apakah Terjadi <em>Overfitting</em>?)</strong></p></li>
+<li><p>Kita juga meminta model untuk menebak data yang sudah ia pelajari. Jika model berkinerja <em>terlalu sempurna</em> di sini tetapi buruk pada data test, itu pertanda bahaya. Ini berarti model tidak benar-benar “belajar” polanya, melainkan hanya “menghafal” data latihan (<em>overfitting</em>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+
+<span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">knn_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediksi berhasil dilakukan&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape y_pred: </span><span class="si">{</span><span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prediksi berhasil dilakukan
+Shape y_pred: (54,)
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="10">
+<li><p>Evaluasi Model</p></li>
+</ol>
+<p>Ini adalah langkah “pengujian” 📝. Setelah model Anda dilatih (belajar dari data <em>training</em>), sekarang saatnya kita menggunakannya untuk membuat tebakan (<em>prediksi</em>).</p>
+<p>Proses ini dilakukan pada <strong>dua set data</strong> untuk dua tujuan berbeda:</p>
+</section>
+<hr class="docutils" />
+<section id="id1">
+<h3>1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tujuan:</strong> <strong>Evaluasi Kinerja (Seberapa Akurat?)</strong></p></li>
+<li><p>Ini adalah pengujian yang paling penting. Kita memberikan model data “baru” yang belum pernah dilihat sebelumnya (20% data terakhir) dan memintanya untuk menebak nilai NO2. Hasil prediksi ini akan kita bandingkan dengan nilai NO2 yang <em>sebenarnya</em> (<code class="docutils literal notranslate"><span class="pre">y_test</span></code>) untuk menghitung seberapa besar <em>error</em> atau akurasi <em>forecast</em> kita.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h3>2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tujuan:</strong> <strong>Diagnosis Model (Apakah Terjadi <em>Overfitting</em>?)</strong></p></li>
+<li><p>Kita juga meminta model untuk menebak data yang sudah ia pelajari. Jika model berkinerja <em>terlalu sempurna</em> di sini tetapi buruk pada data test, itu pertanda bahaya. Ini berarti model tidak benar-benar “belajar” polanya, melainkan hanya “menghafal” data latihan (<em>overfitting</em>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse_test</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">rmse_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_test</span><span class="p">)</span>
+<span class="n">mae_test</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">r2_test</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="n">mse_train</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+<span class="n">rmse_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_train</span><span class="p">)</span>
+<span class="n">mae_train</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+<span class="n">r2_train</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EVALUASI MODEL KNN REGRESSION&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Training:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Testing:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+EVALUASI MODEL KNN REGRESSION
+==================================================
+
+Metrik pada Data Training:
+MSE  : 0.000000
+RMSE : 0.000005
+MAE  : 0.000003
+R²   : 0.650500
+
+Metrik pada Data Testing:
+MSE  : 0.000000
+RMSE : 0.000009
+MAE  : 0.000007
+R²   : -0.125536
+==================================================
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="11">
+<li><p>Visualisasi Hasil Prediksi</p></li>
+</ol>
+<p>Ini adalah langkah “uji mata” 👁️ untuk menilai performa model Anda secara visual, yang seringkali lebih intuitif daripada hanya melihat angka <em>error</em>.</p>
+</section>
+<hr class="docutils" />
+<section id="plot-time-series-aktual-vs-prediksi">
+<h3>1. Plot Time Series (Aktual vs. Prediksi)<a class="headerlink" href="#plot-time-series-aktual-vs-prediksi" title="Link to this heading">#</a></h3>
+<p>Ini adalah grafik garis di mana Anda memplot dua data pada sumbu waktu yang sama:</p>
+<ol class="arabic simple">
+<li><p><strong>Garis Aktual (<code class="docutils literal notranslate"><span class="pre">y_test</span></code>):</strong> Menunjukkan data NO2 yang sebenarnya terjadi.</p></li>
+<li><p><strong>Garis Prediksi (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>):</strong> Menunjukkan apa yang <em>ditebak</em> oleh model.</p></li>
+</ol>
+<p><strong>Tujuannya</strong> adalah untuk melihat seberapa baik garis prediksi “memeluk” atau mengikuti alur garis aktual. Anda bisa langsung melihat apakah model berhasil menangkap tren, puncak, dan lembah dari data aslinya, atau apakah prediksinya meleset jauh.</p>
+</section>
+<hr class="docutils" />
+<section id="scatter-plot-prediksi-vs-aktual">
+<h3>2. Scatter Plot (Prediksi vs. Aktual)<a class="headerlink" href="#scatter-plot-prediksi-vs-aktual" title="Link to this heading">#</a></h3>
+<p>Ini adalah plot titik di mana:</p>
+<ul class="simple">
+<li><p><strong>Sumbu-X</strong> adalah <strong>Nilai Aktual (<code class="docutils literal notranslate"><span class="pre">y_test</span></code>)</strong>.</p></li>
+<li><p><strong>Sumbu-Y</strong> adalah <strong>Nilai Prediksi (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>)</strong>.</p></li>
+</ul>
+<p><strong>Tujuannya</strong> adalah untuk memeriksa korelasi dan akurasi. Pada plot ini, sebuah <strong>garis diagonal lurus (garis y=x)</strong> akan melambangkan prediksi yang sempurna (di mana <code class="docutils literal notranslate"><span class="pre">prediksi</span> <span class="pre">=</span> <span class="pre">aktual</span></code>). Semakin rapat dan dekat titik-titik data mengelompok di sekitar garis diagonal ini, semakin akurat model Anda.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot prediksi vs actual</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot 1: Prediksi vs Actual pada data test</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sample Index&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;NO2 Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Prediksi vs Actual - Data Test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot 2: Scatter plot actual vs predicted</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot: Actual vs Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/11f5e238ea2cbc91efe6abfdbcb32a6730498c607c9ce8b7d400cefe2fd8d4d5.png" src="_images/11f5e238ea2cbc91efe6abfdbcb32a6730498c607c9ce8b7d400cefe2fd8d4d5.png" />
+</div>
+</div>
+<ol class="arabic simple" start="12">
+<li><p>Residual Analysis</p></li>
+</ol>
+<p>Ini adalah langkah “post-mortem” 🕵️‍♂️ untuk model Anda. Alih-alih hanya melihat skor akurasi tunggal, Anda sekarang menganalisis <strong>karakter dari kesalahan</strong> yang dibuat model.</p>
+<p><strong>Residual</strong> adalah selisih antara nilai aktual dan nilai prediksi (<code class="docutils literal notranslate"><span class="pre">Error</span> <span class="pre">=</span> <span class="pre">Aktual</span> <span class="pre">-</span> <span class="pre">Prediksi</span></code>). Tujuannya adalah untuk memastikan bahwa kesalahan-kesalahan ini <strong>acak (random)</strong> dan tidak memiliki pola. Jika ada pola dalam kesalahan, itu berarti model Anda melewatkan sesuatu yang penting.</p>
+</section>
+<hr class="docutils" />
+<section id="residual-plot-plot-sisaan">
+<h3>1. Residual Plot (Plot Sisaan)<a class="headerlink" href="#residual-plot-plot-sisaan" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Apa itu?</strong> Ini adalah <em>scatter plot</em> dengan nilai <strong>residual (error)</strong> di sumbu Y dan <strong>nilai prediksi</strong> (atau waktu) di sumbu X.</p></li>
+<li><p><strong>Apa yang Diharapkan (Hasil Baik):</strong> Sebuah “awan” titik data yang acak dan tidak berbentuk ☁️, tersebar secara merata di sekitar garis nol.</p></li>
+<li><p><strong>Tanda Bahaya (Hasil Buruk):</strong> Adanya pola.</p>
+<ul>
+<li><p><strong>Bentuk Corong/Terompet:</strong> Kesalahan model menjadi lebih besar untuk prediksi yang lebih besar (<em>heteroscedasticity</em>).</p></li>
+<li><p><strong>Bentuk Kurva (U-shape):</strong> Model Anda secara sistematis gagal menangkap pola non-linear.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="histogram-distribusi-residual">
+<h3>2. Histogram Distribusi Residual<a class="headerlink" href="#histogram-distribusi-residual" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Apa itu?</strong> Menunjukkan seberapa sering model Anda membuat kesalahan besar vs. kecil.</p></li>
+<li><p><strong>Apa yang Diharapkan (Hasil Baik):</strong> Sebuah <strong>kurva lonceng (bell curve) 🔔</strong> yang simetris dan terpusat di angka nol. Ini menunjukkan bahwa sebagian besar kesalahan sangat kecil (mendekati nol), dan kesalahan besar (baik positif maupun negatif) sangat jarang terjadi.</p></li>
+<li><p><strong>Tanda Bahaya (Hasil Buruk):</strong> Plot yang “miring” (skewed) ke satu sisi. Ini berarti model Anda memiliki bias (misalnya, lebih sering sedikit melebih-lebihkan prediksi daripada meremehkannya).</p></li>
+</ul>
+</section>
+<section id="q-q-plot-cek-normalitas">
+<h3>3. Q-Q Plot (Cek Normalitas)<a class="headerlink" href="#q-q-plot-cek-normalitas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Apa itu?</strong> Cara teknis untuk membandingkan apakah distribusi error Anda (residual) cocok dengan distribusi normal yang sempurna.</p></li>
+<li><p><strong>Apa yang Diharapkan (Hasil Baik):</strong> Titik-titik data jatuh persis di sepanjang <strong>garis lurus diagonal</strong>.</p></li>
+<li><p><strong>Tanda Bahaya (Hasil Buruk):</strong> Titik-titik data melengkung menjauhi garis lurus, terutama di bagian ujung (ekor). Ini adalah konfirmasi visual bahwa error Anda tidak terdistribusi secara normal.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hitung residual</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">y_pred</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot 1: Residual plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">residuals</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted Values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residual Plot&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot 2: Histogram residual</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot 3: Q-Q plot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="s2">&quot;norm&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">plt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Q-Q Plot&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Residual: </span><span class="si">{</span><span class="n">residuals</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std Residual: </span><span class="si">{</span><span class="n">residuals</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/46e98d9eaa3b73d3d07857300f3c270522c23de3f39f0e251de120eb18d98e03.png" src="_images/46e98d9eaa3b73d3d07857300f3c270522c23de3f39f0e251de120eb18d98e03.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Residual: -0.000001
+Std Residual: 0.000009
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="13">
+<li><p>Hyperparameter Tuning - Mencari K Optimal</p></li>
+</ol>
+<p>Ini adalah langkah <strong>optimasi</strong> 🎯. Pilihan <code class="docutils literal notranslate"><span class="pre">k=3</span></code> yang kita gunakan di awal hanyalah tebakan. Sekarang, kita akan mencari nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> terbaik secara sistematis.</p>
+</section>
+</section>
+<section id="mengapa-mencari-k-optimal">
+<h2>Mengapa Mencari ‘k’ Optimal?<a class="headerlink" href="#mengapa-mencari-k-optimal" title="Link to this heading">#</a></h2>
+<p>Nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> sangat memengaruhi perilaku model dan harus diseimbangkan dengan cermat (ini disebut <em>Bias-Variance Tradeoff</em>):</p>
+<ul class="simple">
+<li><p><strong>Jika <code class="docutils literal notranslate"><span class="pre">k</span></code> terlalu kecil (misal, <code class="docutils literal notranslate"><span class="pre">k=1</span></code>):</strong>
+Model menjadi terlalu “sensitif” dan hanya meniru tetangga terdekatnya. Ini akan menghasilkan prediksi yang sangat bergejolak dan <strong>overfitting</strong> (model menghafal data latihan tapi buruk pada data baru). Skor R² di data <em>training</em> akan sangat tinggi, tapi di data <em>testing</em> akan rendah.</p></li>
+<li><p><strong>Jika <code class="docutils literal notranslate"><span class="pre">k</span></code> terlalu besar (misal, <code class="docutils literal notranslate"><span class="pre">k=20</span></code>):</strong>
+Model menjadi terlalu “sederhana” dan hanya mengambil rata-rata dari banyak tetangga. Ini akan menghasilkan prediksi yang terlalu mulus (rata) dan <strong>underfitting</strong> (model gagal menangkap pola data). Skor R² akan rendah di kedua set data.</p></li>
+</ul>
+</section>
+<section id="bagaimana-kita-menemukannya">
+<h2>Bagaimana Kita Menemukannya?<a class="headerlink" href="#bagaimana-kita-menemukannya" title="Link to this heading">#</a></h2>
+<p>Prosesnya adalah “kontes” untuk menemukan nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> yang paling seimbang:</p>
+<ol class="arabic simple">
+<li><p><strong>Iterasi (Looping):</strong> Kita membuat <em>loop</em> yang akan mencoba setiap nilai <code class="docutils literal notranslate"><span class="pre">k</span></code>, satu per satu (misal, dari 1, 2, 3, … hingga 20).</p></li>
+<li><p><strong>Latih &amp; Uji Ulang:</strong> Di setiap iterasi, kita melatih model KNN baru dengan nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> tersebut dan menghitung skor R² pada data <em>training</em> dan <em>testing</em>.</p></li>
+<li><p><strong>Bandingkan Hasil:</strong> Kita mengumpulkan semua skor ini ke dalam satu tabel atau plot.</p></li>
+</ol>
+<p><strong>Plot “Elbow”</strong> adalah cara terbaik untuk melihat hasilnya. Kita mencari “siku”  Elbow:</p>
+<ul class="simple">
+<li><p>Kita ingin <code class="docutils literal notranslate"><span class="pre">k</span></code> yang memberikan <strong>Skor R² Testing tertinggi</strong>.</p></li>
+<li><p>Kita juga mencari titik di mana <strong>celah (gap) antara Skor R² Training dan Testing paling kecil</strong>, yang menunjukkan model yang seimbang (tidak <em>overfitting</em>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mencari nilai k optimal</span>
+<span class="n">k_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">train_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_range</span><span class="p">:</span>
+    <span class="n">knn_temp</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+    <span class="n">knn_temp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Score pada data train</span>
+    <span class="n">train_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">knn_temp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+
+    <span class="c1"># Score pada data test</span>
+    <span class="n">test_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">knn_temp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+
+<span class="c1"># Plot hasil</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_range</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Train Score&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_range</span><span class="p">,</span> <span class="n">test_scores</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Score&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Neighbors (k)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;R² Score&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Performance vs K Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">k_range</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Cari k optimal</span>
+<span class="n">optimal_k</span> <span class="o">=</span> <span class="n">k_range</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">test_scores</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Optimal K: </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best Test Score (R²): </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">test_scores</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/874c0218f5e64578d3149735a7cc7e3e0d22cd66dcb7cfc3a282bfb1b609270b.png" src="_images/874c0218f5e64578d3149735a7cc7e3e0d22cd66dcb7cfc3a282bfb1b609270b.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal K: 19
+Best Test Score (R²): 0.017960
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="14">
+<li><p>Training Model dengan K Optimal</p></li>
+</ol>
+<p>Ini adalah langkah <strong>finalisasi</strong> 🏆. Setelah proses <em>tuning</em> (langkah 13) memberi tahu kita nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> mana yang “juara” (misalnya, <code class="docutils literal notranslate"><span class="pre">k=9</span></code>), kita sekarang secara resmi menggunakan nilai tersebut.</p>
+<p>Prosesnya adalah:</p>
+<ol class="arabic simple">
+<li><p>Kita <strong>membuang</strong> model <code class="docutils literal notranslate"><span class="pre">k=3</span></code> yang lama (yang hanya tebakan awal).</p></li>
+<li><p>Kita <strong>membuat satu model KNN baru</strong> yang dari awal sudah disetel secara khusus dengan <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> = <code class="docutils literal notranslate"><span class="pre">k</span></code> optimal (misalnya, 7).</p></li>
+<li><p>Kita <strong>melatih ulang (fit)</strong> model baru ini pada data <em>training</em>.</p></li>
+<li><p>Kita <strong>mengevaluasi</strong> performanya pada data <em>testing</em>.</p></li>
+</ol>
+<p>Angka evaluasi (R², RMSE, dll.) dari model <em>optimal</em> inilah yang menjadi <strong>hasil akhir</strong> dan acuan kita tentang seberapa baik model KNN ini dapat memprediksi data NO2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training ulang dengan k optimal</span>
+<span class="n">knn_optimal</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">optimal_k</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">knn_optimal</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi dengan model optimal</span>
+<span class="n">y_pred_optimal</span> <span class="o">=</span> <span class="n">knn_optimal</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+<span class="n">y_train_pred_optimal</span> <span class="o">=</span> <span class="n">knn_optimal</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model optimal</span>
+<span class="n">mse_test_opt</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span>
+<span class="n">rmse_test_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_test_opt</span><span class="p">)</span>
+<span class="n">mae_test_opt</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span>
+<span class="n">r2_test_opt</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span>
+
+<span class="n">mse_train_opt</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
+<span class="n">rmse_train_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_train_opt</span><span class="p">)</span>
+<span class="n">mae_train_opt</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
+<span class="n">r2_train_opt</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MODEL KNN REGRESSION DENGAN K OPTIMAL = </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Training:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Testing:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+MODEL KNN REGRESSION DENGAN K OPTIMAL = 19
+==================================================
+
+Metrik pada Data Training:
+MSE  : 0.000000
+RMSE : 0.000007
+MAE  : 0.000005
+R²   : 0.382060
+
+Metrik pada Data Testing:
+MSE  : 0.000000
+RMSE : 0.000008
+MAE  : 0.000007
+R²   : 0.017960
+==================================================
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="15">
+<li><p>Perbandingan Model Default vs Optimal</p></li>
+</ol>
+<p>Ini adalah langkah <strong>validasi</strong> ⚖️, di mana kita membuktikan bahwa proses <em>tuning</em> (langkah 12) benar-benar ada gunanya.</p>
+<p>Kita membandingkan “rapor” (skor R², RMSE, dll.) dari dua model secara berdampingan:</p>
+<ol class="arabic simple">
+<li><p><strong>Model Default (k=5):</strong> Ini adalah model yang kita buat berdasarkan tebakan awal.</p></li>
+<li><p><strong>Model Optimal (k=19, misalnya):</strong> Ini adalah model yang kita dapatkan setelah pencarian sistematis untuk nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> terbaik.</p></li>
+</ol>
+<p><strong>Tujuannya</strong> adalah untuk mengukur seberapa besar peningkatannya. Perbandingan ini secara jelas menunjukkan nilai tambah dari <em>hyperparameter tuning</em> dan memberikan keyakinan bahwa model akhir yang kita pilih adalah versi KNN terbaik untuk masalah <em>time series</em> NO2 ini.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buat dataframe untuk perbandingan</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;R²&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Default (k=5) - Train&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse_train</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">,</span> <span class="n">mae_train</span><span class="p">,</span> <span class="n">r2_train</span><span class="p">],</span>
+    <span class="s1">&#39;Default (k=5) - Test&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse_test</span><span class="p">,</span> <span class="n">rmse_test</span><span class="p">,</span> <span class="n">mae_test</span><span class="p">,</span> <span class="n">r2_test</span><span class="p">],</span>
+    <span class="sa">f</span><span class="s1">&#39;Optimal (k=</span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s1">) - Train&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse_train_opt</span><span class="p">,</span> <span class="n">rmse_train_opt</span><span class="p">,</span> <span class="n">mae_train_opt</span><span class="p">,</span> <span class="n">r2_train_opt</span><span class="p">],</span>
+    <span class="sa">f</span><span class="s1">&#39;Optimal (k=</span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s1">) - Test&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse_test_opt</span><span class="p">,</span> <span class="n">rmse_test_opt</span><span class="p">,</span> <span class="n">mae_test_opt</span><span class="p">,</span> <span class="n">r2_test_opt</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Perbandingan Model:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Perbandingan Model:
+Metric  Default (k=5) - Train  Default (k=5) - Test  Optimal (k=19) - Train  Optimal (k=19) - Test
+   MSE           2.481973e-11          7.990057e-11            4.388308e-11           6.971393e-11
+  RMSE           4.981940e-06          8.938712e-06            6.624430e-06           8.349487e-06
+   MAE           3.277000e-06          7.175044e-06            4.542402e-06           6.886499e-06
+    R²           6.505005e-01         -1.255360e-01            3.820596e-01           1.796017e-02
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="16">
+<li><p>Visualisasi Hasil Model Optimal
+Visualisasi hasil prediksi model optimal dengan time series plot dan scatter plot untuk mengevaluasi kualitas prediksi secara visual.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot hasil prediksi model optimal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot 1: Time series comparison</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_optimal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted (Optimal)&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sample Index&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;NO2 Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Prediksi vs Actual - Model Optimal (k=</span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot 2: Scatter plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="p">[</span><span class="n">y_test</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scatter Plot - Model Optimal (k=</span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c366046bb4db9cd2a71cddf8f51c243dfffb83efe3063912e06836332f3db767.png" src="_images/c366046bb4db9cd2a71cddf8f51c243dfffb83efe3063912e06836332f3db767.png" />
+</div>
+</div>
 </section>
 </section>
 
@@ -1771,6 +2416,24 @@ Kolom target: NO2
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penambahan-fitur-temporal-konteks-kalender">2. Penambahan Fitur Temporal (Konteks Kalender)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembuatan-fitur-siklik-konteks-berulang">3. Pembuatan Fitur Siklik (Konteks Berulang)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-modeling-dengan-knn-regresion">Melakukan modeling dengan KNN regresion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implikasi-dari-pilihan-ini">Implikasi dari Pilihan Ini</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-shuffle-false-sangat-penting">Mengapa <code class="docutils literal notranslate"><span class="pre">shuffle=False</span></code> Sangat Penting?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-ini-sangat-penting-untuk-knn">Mengapa Ini Sangat Penting untuk KNN?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-pada-data-test-x-test-scaled">1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-pada-data-train-x-train-scaled">2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Prediksi pada Data Test (<code class="docutils literal notranslate"><span class="pre">X_test_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2. Prediksi pada Data Train (<code class="docutils literal notranslate"><span class="pre">X_train_scaled</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-time-series-aktual-vs-prediksi">1. Plot Time Series (Aktual vs. Prediksi)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-prediksi-vs-aktual">2. Scatter Plot (Prediksi vs. Aktual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-plot-plot-sisaan">1. Residual Plot (Plot Sisaan)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-distribusi-residual">2. Histogram Distribusi Residual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-q-plot-cek-normalitas">3. Q-Q Plot (Cek Normalitas)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-mencari-k-optimal">Mengapa Mencari ‘k’ Optimal?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagaimana-kita-menemukannya">Bagaimana Kita Menemukannya?</a></li>
 </ul>
   </nav></div>
 
