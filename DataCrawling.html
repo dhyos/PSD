@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'DataCrawling';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Import ibrary yang dibutuhkan" href="EkstrakAudioToFitur.html" />
     <link rel="prev" title="Ekplorasi Menggunakan Tools Knime" href="PraUTS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,6 +187,10 @@
 <li class="toctree-l1"><a class="reference internal" href="esembleLearning.html">Esemble Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PraUTS.html">Ekplorasi Menggunakan Tools Knime</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Crawling Data NO2 wilayah sumenep</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EkstrakAudioToFitur.html">Import ibrary yang dibutuhkan</a></li>
+
+
+
 </ul>
 
     </div>
@@ -439,16 +444,27 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: openeo in /usr/local/lib/python3.12/dist-packages (0.45.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting openeo
+  Downloading openeo-0.45.0-py3-none-any.whl.metadata (8.2 kB)
 Requirement already satisfied: requests&gt;=2.26.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.32.4)
 Requirement already satisfied: urllib3&gt;=1.9.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.5.0)
 Requirement already satisfied: shapely&gt;=1.6.4 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.1.2)
 Requirement already satisfied: numpy&gt;=1.17.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.0.2)
-Requirement already satisfied: xarray&lt;2025.01.2,&gt;=0.12.3 in /usr/local/lib/python3.12/dist-packages (from openeo) (2025.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting xarray&lt;2025.01.2,&gt;=0.12.3 (from openeo)
+  Downloading xarray-2025.1.1-py3-none-any.whl.metadata (11 kB)
 Requirement already satisfied: pandas&gt;0.20.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.2.2)
-Requirement already satisfied: pystac&gt;=1.5.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (1.14.1)
-Requirement already satisfied: deprecated&gt;=1.2.12 in /usr/local/lib/python3.12/dist-packages (from openeo) (1.2.18)
-Requirement already satisfied: wrapt&lt;2,&gt;=1.10 in /usr/local/lib/python3.12/dist-packages (from deprecated&gt;=1.2.12-&gt;openeo) (1.17.3)
+Collecting pystac&gt;=1.5.0 (from openeo)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting deprecated&gt;=1.2.12 (from openeo)
+  Downloading Deprecated-1.2.18-py2.py3-none-any.whl.metadata (5.7 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting wrapt&lt;2,&gt;=1.10 (from deprecated&gt;=1.2.12-&gt;openeo)
+  Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.4 kB)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2025.2)
@@ -457,6 +473,40 @@ Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/d
 Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (2025.10.5)
 Requirement already satisfied: packaging&gt;=23.2 in /usr/local/lib/python3.12/dist-packages (from xarray&lt;2025.01.2,&gt;=0.12.3-&gt;openeo) (25.0)
 Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;0.20.0-&gt;openeo) (1.17.0)
+Downloading openeo-0.45.0-py3-none-any.whl (335 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/335.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">215.0/335.1 kB</span> <span class=" -Color -Color-Red">6.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">335.1/335.1 kB</span> <span class=" -Color -Color-Red">6.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Deprecated-1.2.18-py2.py3-none-any.whl (10.0 kB)
+Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/207.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">207.7/207.7 kB</span> <span class=" -Color -Color-Red">14.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading xarray-2025.1.1-py3-none-any.whl (1.2 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.2/1.2 MB</span> <span class=" -Color -Color-Red">39.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (88 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/88.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">88.0/88.0 kB</span> <span class=" -Color -Color-Red">6.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: wrapt, pystac, deprecated, xarray, openeo
+  Attempting uninstall: wrapt
+    Found existing installation: wrapt 2.0.0
+    Uninstalling wrapt-2.0.0:
+      Successfully uninstalled wrapt-2.0.0
+  Attempting uninstall: xarray
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: xarray 2025.10.1
+    Uninstalling xarray-2025.10.1:
+      Successfully uninstalled xarray-2025.10.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed deprecated-1.2.18 openeo-0.45.0 pystac-1.14.1 wrapt-1.17.3 xarray-2025.1.1
 </pre></div>
 </div>
 </div>
@@ -481,7 +531,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-pac
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=DAEC-MKOX" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=DAEC-MKOX" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=DAEC-MKOX</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=DAEC-MKOX');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html"><code>[##################################---]</code> ⌛ Authorization pending</div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html"><code>[##################################---]</code> ⌛ Authorization pending</div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
 <span class="nn">/tmp/ipython-input-1507458264.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Connect to openEO backend</span>
@@ -628,18 +678,17 @@ Data collection and aggregation configured successfully
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting data processing job...
-0:00:00 Job &#39;j-25102513214346289b53c82ace640034&#39;: send &#39;start&#39;
-0:00:13 Job &#39;j-25102513214346289b53c82ace640034&#39;: created (progress 0%)
-0:00:19 Job &#39;j-25102513214346289b53c82ace640034&#39;: created (progress 0%)
-0:00:25 Job &#39;j-25102513214346289b53c82ace640034&#39;: created (progress 0%)
-0:00:33 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:00:43 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:00:56 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:01:12 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:01:31 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:01:55 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:02:26 Job &#39;j-25102513214346289b53c82ace640034&#39;: running (progress N/A)
-0:03:03 Job &#39;j-25102513214346289b53c82ace640034&#39;: finished (progress 100%)
+0:00:00 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: send &#39;start&#39;
+0:00:13 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:00:18 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:00:25 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:00:33 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:00:43 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:00:55 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: queued (progress 0%)
+0:01:11 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: running (progress N/A)
+0:01:30 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: running (progress N/A)
+0:01:54 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: running (progress N/A)
+0:02:24 Job &#39;j-251027005602425c9a302360f4d0a000&#39;: finished (progress 100%)
 </pre></div>
 </div>
 </div>
@@ -881,7 +930,7 @@ Shape data asli: (273, 5)
 Shape data processed: (273, 5)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-2736282430.py:24: FutureWarning: Series.fillna with &#39;method&#39; is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-1108620982.py:24: FutureWarning: Series.fillna with &#39;method&#39; is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
   df_processed[col] = df_processed[col].fillna(method=&#39;ffill&#39;).fillna(method=&#39;bfill&#39;)
 </pre></div>
 </div>
@@ -1135,7 +1184,7 @@ Pada langkah ini, kita memuat file data yang sudah ditransformasi 💾. Ini buka
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-ac86b9ee-571e-414a-8151-ba87b21d0487" class="colab-df-container">
+  <div id="df-649e0ace-faa7-477f-8615-3589afe95990" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1305,7 +1354,7 @@ Pada langkah ini, kita memuat file data yang sudah ditransformasi 💾. Ini buka
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-ac86b9ee-571e-414a-8151-ba87b21d0487')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-649e0ace-faa7-477f-8615-3589afe95990')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1357,12 +1406,12 @@ Pada langkah ini, kita memuat file data yang sudah ditransformasi 💾. Ini buka
 
     <script>
       const buttonEl =
-        document.querySelector('#df-ac86b9ee-571e-414a-8151-ba87b21d0487 button.colab-df-convert');
+        document.querySelector('#df-649e0ace-faa7-477f-8615-3589afe95990 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-ac86b9ee-571e-414a-8151-ba87b21d0487');
+        const element = document.querySelector('#df-649e0ace-faa7-477f-8615-3589afe95990');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1382,8 +1431,8 @@ Pada langkah ini, kita memuat file data yang sudah ditransformasi 💾. Ini buka
   </div>
 
 
-    <div id="df-d9e4311f-9b1a-4986-bad7-a38aed85ab63">
-      <button class="colab-df-quickchart" onclick="quickchart('df-d9e4311f-9b1a-4986-bad7-a38aed85ab63')"
+    <div id="df-4f1ab7da-7e7e-4164-b689-643a153cc008">
+      <button class="colab-df-quickchart" onclick="quickchart('df-4f1ab7da-7e7e-4164-b689-643a153cc008')"
                 title="Suggest charts"
                 style="display:none;">
 
@@ -1502,7 +1551,7 @@ Pada langkah ini, kita memuat file data yang sudah ditransformasi 💾. Ini buka
         }
         (() => {
           let quickchartButtonEl =
-            document.querySelector('#df-d9e4311f-9b1a-4986-bad7-a38aed85ab63 button');
+            document.querySelector('#df-4f1ab7da-7e7e-4164-b689-643a153cc008 button');
           quickchartButtonEl.style.display =
             google.colab.kernel.accessAllowed ? 'block' : 'none';
         })();
@@ -1572,7 +1621,7 @@ Deskripsi Statistik:
                   x             y         NO2   NO2_lag_1   NO2_lag_2  \
 count  2.660000e+02  2.660000e+02  266.000000  266.000000  266.000000   
 mean   1.138935e+02 -6.986234e+00    0.000009    0.000009    0.000009   
-std    2.278023e-13  2.669558e-14    0.000009    0.000009    0.000009   
+std    2.278023e-13  2.669558e-14    0.000008    0.000009    0.000009   
 min    1.138935e+02 -6.986234e+00   -0.000015   -0.000015   -0.000015   
 25%    1.138935e+02 -6.986234e+00    0.000003    0.000003    0.000003   
 50%    1.138935e+02 -6.986234e+00    0.000009    0.000009    0.000009   
@@ -1685,10 +1734,101 @@ Ini adalah langkah <strong>pemilihan fitur (<em>feature selection</em>)</strong>
 <p>Model ini dipaksa untuk menemukan pola <em>hanya</em> dari momentum internal data (nilai-nilai lag), tanpa bantuan konteks eksternal kapan kejadian itu terjadi.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span>
+
+<span class="c1"># 2. DETEKSI OUTLIER DENGAN LOCAL OUTLIER FACTOR (LOF)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Deteksi Outlier dengan LOF ---&quot;</span><span class="p">)</span>
+<span class="c1"># n_neighbors: Jumlah tetangga terdekat yang digunakan.</span>
+<span class="c1"># contamination: Perkiraan proporsi outlier dalam data. &#39;auto&#39; mencoba untuk mendeteksinya.</span>
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="c1"># y_pred_outliers akan berisi -1 untuk outlier dan 1 untuk inlier</span>
+<span class="n">y_pred_outliers</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Tambahkan status outlier ke X</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_outliers</span>
+
+<span class="c1"># Jumlah outlier yang terdeteksi</span>
+<span class="n">outlier_count</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_pred_outliers</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah outlier yang terdeteksi: </span><span class="si">{</span><span class="n">outlier_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Anda dapat memfilter X untuk hanya menyertakan data non-outlier jika diperlukan:</span>
+<span class="c1"># X_inliers = X[X[&#39;is_outlier&#39;] == 1].drop(columns=[&#39;is_outlier&#39;])</span>
+
+
+<span class="c1"># 3. NORMALISASI DATA FITUR (MinMaxScaler)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Normalisasi Data Fitur (MinMaxScaler) ---&quot;</span><span class="p">)</span>
+
+<span class="c1"># Normalisasi hanya pada kolom fitur numerik (dengan mengecualikan kolom &#39;is_outlier&#39;)</span>
+<span class="n">X_to_scale</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">])</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1"># Lakukan fit dan transform</span>
+<span class="n">X_normalized</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_to_scale</span><span class="p">)</span>
+
+<span class="c1"># Konversi kembali ke DataFrame</span>
+<span class="n">X_normalized_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_normalized</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X_to_scale</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">X_normalized_df</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="c1"># Tambahkan kembali status outlier</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Contoh data ternormalisasi (5 baris pertama):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_normalized_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+
+<span class="c1"># 4. ANALISIS AUTOKORELASI (ACF Plot)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Analisis Autokorelasi (ACF) ---&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># plot_acf akan menampilkan seberapa besar korelasi nilai saat ini (t) dengan nilai masa lalu (t-lag)</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span> <span class="c1"># lags=50 untuk 50 periode waktu ke belakang</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Autocorrelation Function (ACF) untuk </span><span class="si">{</span><span class="n">target_col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autokorelasi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># Tampilkan plot</span>
+<span class="c1"># plt.savefig(&#39;autocorrelation_acf_plot.png&#39;) # Simpan pl</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Deteksi Outlier dengan LOF ---
+Jumlah outlier yang terdeteksi: 16
+
+--- Normalisasi Data Fitur (MinMaxScaler) ---
+Contoh data ternormalisasi (5 baris pertama):
+   NO2_lag_1  NO2_lag_2  NO2_lag_3  NO2_lag_4  NO2_lag_5  NO2_lag_6  \
+0   0.599926   0.599926   0.599926   0.599926   0.599926   0.599926   
+1   0.599926   0.599926   0.599926   0.599926   0.599926   0.599926   
+2   0.599926   0.599926   0.599926   0.599926   0.599926   0.599926   
+3   0.599926   0.599926   0.599926   0.599926   0.599926   0.599926   
+4   0.599926   0.599926   0.599926   0.599926   0.599926   0.599926   
+
+   NO2_lag_7  is_outlier  
+0   0.599926           1  
+1   0.599926           1  
+2   0.599926           1  
+3   0.599926           1  
+4   0.599926           1  
+
+--- Analisis Autokorelasi (ACF) ---
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1000x500 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="_images/91fc4512d9f0c9787c4a9180329d4e6f4468b61974af762c3c470a2e5739b205.png" src="_images/91fc4512d9f0c9787c4a9180329d4e6f4468b61974af762c3c470a2e5739b205.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
     <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
         <span class="n">target_col</span><span class="p">,</span>
         <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;NO2_lag_6&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2_lag_7&#39;</span><span class="p">,</span>
         <span class="s2">&quot;x&quot;</span><span class="p">,</span>
         <span class="s2">&quot;y&quot;</span><span class="p">,</span>
         <span class="s2">&quot;crs&quot;</span><span class="p">,</span>
@@ -1707,17 +1847,16 @@ Ini adalah langkah <strong>pemilihan fitur (<em>feature selection</em>)</strong>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape X: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape y: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kolom fitur yang digunakan:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kolom fitur yang digunakan:</span><span class="se">\n</span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape X: (266, 7)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape X: (266, 5)
 Shape y: (266,)
 
 Kolom fitur yang digunakan:
-[&#39;NO2_lag_1&#39;, &#39;NO2_lag_2&#39;, &#39;NO2_lag_3&#39;, &#39;NO2_lag_4&#39;, &#39;NO2_lag_5&#39;, &#39;NO2_lag_6&#39;, &#39;NO2_lag_7&#39;]
+[&#39;NO2_lag_1&#39;, &#39;NO2_lag_2&#39;, &#39;NO2_lag_3&#39;, &#39;NO2_lag_4&#39;, &#39;NO2_lag_5&#39;]
 </pre></div>
 </div>
 </div>
@@ -1756,10 +1895,10 @@ Anda memastikan data terbelah secara kronologis. Model hanya akan dilatih pada 8
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape data train:
-X_train: (212, 7), y_train: (212,)
+X_train: (212, 5), y_train: (212,)
 
 Shape data test:
-X_test: (54, 7), y_test: (54,)
+X_test: (54, 5), y_test: (54,)
 </pre></div>
 </div>
 </div>
@@ -1892,7 +2031,14 @@ Shape y_pred: (54,)
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse_test</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pastikan Anda mengimpor fungsi yang diperlukan di awal script Anda</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+
+<span class="c1"># --- Asumsi y_test, y_pred, y_train, y_train_pred sudah ada ---</span>
+
+<span class="c1"># Perhitungan metrik yang sudah ada</span>
+<span class="n">mse_test</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">rmse_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_test</span><span class="p">)</span>
 <span class="n">mae_test</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 <span class="n">r2_test</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
@@ -1902,6 +2048,11 @@ Shape y_pred: (54,)
 <span class="n">mae_train</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
 <span class="n">r2_train</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
 
+<span class="c1"># --- Perhitungan MAPE ---</span>
+<span class="n">mape_train</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">)</span>
+<span class="n">mape_test</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># --- Output Evaluasi ---</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EVALUASI MODEL KNN REGRESSION&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
@@ -1909,11 +2060,13 @@ Shape y_pred: (54,)
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE : </span><span class="si">{</span><span class="n">mape_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># &lt;-- MAPE ditambahkan</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_train</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Testing:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE : </span><span class="si">{</span><span class="n">mape_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># &lt;-- MAPE ditambahkan</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_test</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
@@ -1928,13 +2081,15 @@ Metrik pada Data Training:
 MSE  : 0.000000
 RMSE : 0.000005
 MAE  : 0.000003
-R²   : 0.650500
+MAPE : 0.808167
+R²   : 0.651678
 
 Metrik pada Data Testing:
 MSE  : 0.000000
-RMSE : 0.000009
-MAE  : 0.000007
-R²   : -0.125536
+RMSE : 0.000010
+MAE  : 0.000008
+MAPE : 2.338929
+R²   : -0.417191
 ==================================================
 </pre></div>
 </div>
@@ -1994,7 +2149,7 @@ R²   : -0.125536
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/11f5e238ea2cbc91efe6abfdbcb32a6730498c607c9ce8b7d400cefe2fd8d4d5.png" src="_images/11f5e238ea2cbc91efe6abfdbcb32a6730498c607c9ce8b7d400cefe2fd8d4d5.png" />
+<img alt="_images/3aef5cbdceff7cbc7301cf31c5fa0232e4f97cf9d16bbd6ae045bf116d7ddf25.png" src="_images/3aef5cbdceff7cbc7301cf31c5fa0232e4f97cf9d16bbd6ae045bf116d7ddf25.png" />
 </div>
 </div>
 <ol class="arabic simple" start="12">
@@ -2072,9 +2227,9 @@ R²   : -0.125536
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/46e98d9eaa3b73d3d07857300f3c270522c23de3f39f0e251de120eb18d98e03.png" src="_images/46e98d9eaa3b73d3d07857300f3c270522c23de3f39f0e251de120eb18d98e03.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Residual: -0.000001
-Std Residual: 0.000009
+<img alt="_images/cd3041c01d3c74bc1079721f96618f17e2a8355e89c7a7b1dd2ca3ab23e562fe.png" src="_images/cd3041c01d3c74bc1079721f96618f17e2a8355e89c7a7b1dd2ca3ab23e562fe.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Residual: -0.000002
+Std Residual: 0.000010
 </pre></div>
 </div>
 </div>
@@ -2145,9 +2300,9 @@ Model menjadi terlalu “sederhana” dan hanya mengambil rata-rata dari banyak 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/874c0218f5e64578d3149735a7cc7e3e0d22cd66dcb7cfc3a282bfb1b609270b.png" src="_images/874c0218f5e64578d3149735a7cc7e3e0d22cd66dcb7cfc3a282bfb1b609270b.png" />
+<img alt="_images/ab4184571312ef7c36248126b3c2183d00d149d38173ec5a4a97decc6dd3c5bc.png" src="_images/ab4184571312ef7c36248126b3c2183d00d149d38173ec5a4a97decc6dd3c5bc.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal K: 19
-Best Test Score (R²): 0.017960
+Best Test Score (R²): -0.007469
 </pre></div>
 </div>
 </div>
@@ -2166,7 +2321,14 @@ Best Test Score (R²): 0.017960
 <p>Angka evaluasi (R², RMSE, dll.) dari model <em>optimal</em> inilah yang menjadi <strong>hasil akhir</strong> dan acuan kita tentang seberapa baik model KNN ini dapat memprediksi data NO2.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training ulang dengan k optimal</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pastikan Anda mengimpor fungsi yang diperlukan di awal script Anda</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+
+<span class="c1"># --- Asumsi X_train_scaled, y_train, X_test_scaled, y_test, dan optimal_k sudah ada ---</span>
+
+<span class="c1"># Training ulang dengan k optimal</span>
 <span class="n">knn_optimal</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">optimal_k</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 <span class="n">knn_optimal</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
@@ -2179,12 +2341,15 @@ Best Test Score (R²): 0.017960
 <span class="n">rmse_test_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_test_opt</span><span class="p">)</span>
 <span class="n">mae_test_opt</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span>
 <span class="n">r2_test_opt</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span>
+<span class="n">mape_test_opt</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimal</span><span class="p">)</span> <span class="c1"># &lt;-- MAPE Test</span>
 
 <span class="n">mse_train_opt</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
 <span class="n">rmse_train_opt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse_train_opt</span><span class="p">)</span>
 <span class="n">mae_train_opt</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
 <span class="n">r2_train_opt</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span>
+<span class="n">mape_train_opt</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_optimal</span><span class="p">)</span> <span class="c1"># &lt;-- MAPE Train</span>
 
+<span class="c1"># --- Output Evaluasi ---</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MODEL KNN REGRESSION DENGAN K OPTIMAL = </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
@@ -2192,11 +2357,13 @@ Best Test Score (R²): 0.017960
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE : </span><span class="si">{</span><span class="n">mape_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># &lt;-- Print MAPE Train</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_train_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Metrik pada Data Testing:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MSE  : </span><span class="si">{</span><span class="n">mse_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE : </span><span class="si">{</span><span class="n">rmse_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE  : </span><span class="si">{</span><span class="n">mae_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE : </span><span class="si">{</span><span class="n">mape_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># &lt;-- Print MAPE Test</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²   : </span><span class="si">{</span><span class="n">r2_test_opt</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
@@ -2211,13 +2378,15 @@ Metrik pada Data Training:
 MSE  : 0.000000
 RMSE : 0.000007
 MAE  : 0.000005
-R²   : 0.382060
+MAPE : 1.339120
+R²   : 0.367563
 
 Metrik pada Data Testing:
 MSE  : 0.000000
 RMSE : 0.000008
 MAE  : 0.000007
-R²   : 0.017960
+MAPE : 1.774862
+R²   : -0.007469
 ==================================================
 </pre></div>
 </div>
@@ -2252,10 +2421,10 @@ R²   : 0.017960
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Perbandingan Model:
 Metric  Default (k=5) - Train  Default (k=5) - Test  Optimal (k=19) - Train  Optimal (k=19) - Test
-   MSE           2.481973e-11          7.990057e-11            4.388308e-11           6.971393e-11
-  RMSE           4.981940e-06          8.938712e-06            6.624430e-06           8.349487e-06
-   MAE           3.277000e-06          7.175044e-06            4.542402e-06           6.886499e-06
-    R²           6.505005e-01         -1.255360e-01            3.820596e-01           1.796017e-02
+   MSE           2.473610e-11          9.590875e-11            4.491257e-11           6.818068e-11
+  RMSE           4.973540e-06          9.793301e-06            6.701684e-06           8.257159e-06
+   MAE           3.164348e-06          7.582656e-06            4.615064e-06           6.749415e-06
+    R²           6.516781e-01         -4.171911e-01            3.675627e-01          -7.468519e-03
 </pre></div>
 </div>
 </div>
@@ -2294,7 +2463,7 @@ Visualisasi hasil prediksi model optimal dengan time series plot dan scatter plo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c366046bb4db9cd2a71cddf8f51c243dfffb83efe3063912e06836332f3db767.png" src="_images/c366046bb4db9cd2a71cddf8f51c243dfffb83efe3063912e06836332f3db767.png" />
+<img alt="_images/461c55189ea4fa5526569acf8cce9e6744e1732ca6c70802b0cb249e082a7e28.png" src="_images/461c55189ea4fa5526569acf8cce9e6744e1732ca6c70802b0cb249e082a7e28.png" />
 </div>
 </div>
 </section>
@@ -2342,6 +2511,15 @@ Visualisasi hasil prediksi model optimal dengan time series plot dan scatter plo
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Ekplorasi Menggunakan Tools Knime</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="EkstrakAudioToFitur.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Import ibrary yang dibutuhkan</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
