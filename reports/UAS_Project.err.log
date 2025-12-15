@@ -20,62 +20,126 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 ------------------
 import pandas as pd
 import numpy as np
-import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import mutual_info_classif
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.ensemble import IsolationForest
+from imblearn.over_sampling import SMOTE
+import joblib
 import matplotlib.pyplot as plt
+import seaborn as sns
+from IPython.display import display # Import display untuk tabel yang rapi
+
+# Set style untuk plot
+sns.set_style("whitegrid")
+df_train = pd.read_csv('data_train.csv')
+df_test = pd.read_csv('data_validasi.csv')
+print("Data dimuat dari file CSV.")
 
 
-# --- 1. Hitung Matriks Korelasi Penuh ---
-# Hanya variabel numerik yang akan digunakan untuk korelasi
-correlation_matrix = df_all.select_dtypes(include=np.number).corr(numeric_only=True)
+# Asumsi kolom fitur dan label
+feature_columns = [col for col in df_train.columns if col != 'Class_Label']
+X_train_full = df_train[feature_columns]
+y_train = df_train['Class_Label']
+X_test_full = df_test[feature_columns]
+y_test = df_test['Class_Label']
+# Menggabungkan data train dan test untuk analisis awal (sesuai permintaan Anda)
+df_full_combined = pd.concat([df_train, df_test], ignore_index=True)
+y_full = pd.concat([y_train, y_test], ignore_index=True) # <-- Label Keseluruhan
 
-# --- 2. Korelasi Fitur terhadap Label Kelas ---
-# Ekstrak korelasi kolom 'Class_Label' dengan semua fitur
-label_correlation = correlation_matrix['Class_Label'].drop('Class_Label')
 
-print("--- Matriks Korelasi (Fitur vs. Class_Label) ---")
-print("Kolom ini menunjukkan seberapa kuat hubungan antara setiap titik data spektrum (Fitur Time Series) dengan Label Kelas (Stroberi Murni vs Non-Stroberi).")
+# --- BARU: ANALISIS DATA AWAL (SESUAI PERMINTAAN) ---
 
-# Tampilkan 5 korelasi terkuat (nilai absolut tertinggi)
-print("\nTop 5 Korelasi Terkuat (Positif dan Negatif):")
-top_5_abs = label_correlation.abs().nlargest(5).index
-print(label_correlation[top_5_abs].to_markdown(floatfmt=".4f"))
+print("\n" + "="*50)
+print("             📊 ANALISIS DATA AWAL 📊")
+print("="*50)
 
-# Tampilkan 5 korelasi terlemah (mendekati 0)
-print("\nTop 5 Korelasi Terlemah (mendekati 0):")
-bottom_5_abs = label_correlation.abs().nsmallest(5).index
-print(label_correlation[bottom_5_abs].to_markdown(floatfmt=".4f"))
+# 1. Jumlah keseluruhan data
+print(f"Jumlah Total Data (Train + Test): {len(df_full_combined)} sampel")
+print(f"Jumlah Data Train: {len(df_train)} sampel")
+print(f"Jumlah Data Test/Validasi: {len(df_test)} sampel")
+print(f"Jumlah Total Fitur: {len(feature_columns)}")
 
-# --- 3. Subset Matriks Korelasi Antar Fitur (Fitur vs. Fitur) ---
-# Tampilkan subset 5x5 untuk variabel fitur awal
-feature_columns_in_df_all = [col for col in df_all.columns if col.startswith('Fitur_Time_')]
-subset_features = feature_columns_in_df_all[:5]
-feature_subset_matrix = correlation_matrix.loc[subset_features, subset_features]
+print("\nDistribusi Label Keseluruhan Data (Train + Test):")
+print(y_full.value_counts())
 
-print("\n--- Subset Matriks Korelasi Antar Fitur (5 Fitur Awal vs. 5 Fitur Awal) ---")
-print("Tabel ini menunjukkan hubungan antar fitur spektral (misalnya, redundansi informasi).")
-print(feature_subset_matrix.to_markdown(floatfmt=".4f"))
+# 2. Visualisasi distribusi label
+plt.figure(figsize=(7, 5))
+sns.countplot(x='Class_Label', data=df_full_combined)
+plt.title('Distribusi Data pada Setiap Label Kelas')
+plt.xlabel('Label Kelas (1: Murni, 2: Non-Murni)')
+plt.ylabel('Jumlah Sampel')
+plt.xticks(ticks=[0, 1], labels=['Kelas 1', 'Kelas 2'])
+plt.savefig('visualisasi_distribusi_label.png')
+print("\n[Visualisasi] Distribusi Label tersimpan sebagai 'visualisasi_distribusi_label.png'")
 
-# --- 4. Visualisasi Matriks Korelasi Penuh ---
-print("\n--- Visualisasi Matriks Korelasi Penuh ---")
-plt.figure(figsize=(15, 12)) # Ukuran plot disesuaikan
-sns.heatmap(correlation_matrix, cmap='coolwarm', fmt=".2f",
-            cbar_kws={'label': 'Koefisien Korelasi'})
-plt.title('Matriks Korelasi Penuh antara Fitur Spektral dan Class_Label',
-          fontsize=16, pad=20)
-plt.xlabel('Variabel', fontsize=12)
-plt.ylabel('Variabel', fontsize=12)
-plt.show()
+
+# 3. Menampilkan 5 data awal dan 5 data akhir
+df_display = df_full_combined[['Class_Label'] + feature_columns].copy()
+df_display = df_display.reset_index(drop=True)
+
+df_display.insert(6, '......', '......')
+df_display = df_display.iloc[:, [0, 1, 2, 3, 4, 5, 6, -5, -4, -3, -2, -1]]
+
+df_head = df_display.head(5)
+df_tail = df_display.tail(5)
+
+ellipsis_row = pd.DataFrame([['...'] * len(df_head.columns)], columns=df_head.columns, index=['...'])
+df_output = pd.concat([df_head, ellipsis_row, df_tail], ignore_index=False)
+
+
+print("\n5 Data Awal dan 5 Data Akhir (Ringkasan):")
+display(df_output.style.set_table_attributes("style='display:inline'"))
+# --- AKHIR: ANALISIS DATA AWAL --
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mAttributeError[0m                            Traceback (most recent call last)
-[0;32m/tmp/ipython-input-2768812470.py[0m in [0;36m<cell line: 0>[0;34m()[0m
-[1;32m      7[0m [0;31m# --- 1. Hitung Matriks Korelasi Penuh ---[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      8[0m [0;31m# Hanya variabel numerik yang akan digunakan untuk korelasi[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 9[0;31m [0mcorrelation_matrix[0m [0;34m=[0m [0mdf_all[0m[0;34m.[0m[0mselect_dtypes[0m[0;34m([0m[0minclude[0m[0;34m=[0m[0mnp[0m[0;34m.[0m[0mnumber[0m[0;34m)[0m[0;34m.[0m[0mcorr[0m[0;34m([0m[0mnumeric_only[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     10[0m [0;34m[0m[0m
-[1;32m     11[0m [0;31m# --- 2. Korelasi Fitur terhadap Label Kelas ---[0m[0;34m[0m[0;34m[0m[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[0;32m/tmp/ipython-input-60726847.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     16[0m [0;31m# Set style untuk plot[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     17[0m [0msns[0m[0;34m.[0m[0mset_style[0m[0;34m([0m[0;34m"whitegrid"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 18[0;31m [0mdf_train[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_csv[0m[0;34m([0m[0;34m'data_train.csv'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     19[0m [0mdf_test[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_csv[0m[0;34m([0m[0;34m'data_validasi.csv'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     20[0m [0mprint[0m[0;34m([0m[0;34m"Data dimuat dari file CSV."[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mAttributeError[0m: 'NoneType' object has no attribute 'select_dtypes'
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36mread_csv[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, date_format, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options, dtype_backend)[0m
+[1;32m   1024[0m     [0mkwds[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mkwds_defaults[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1025[0m [0;34m[0m[0m
+[0;32m-> 1026[0;31m     [0;32mreturn[0m [0m_read[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1027[0m [0;34m[0m[0m
+[1;32m   1028[0m [0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36m_read[0;34m(filepath_or_buffer, kwds)[0m
+[1;32m    618[0m [0;34m[0m[0m
+[1;32m    619[0m     [0;31m# Create the parser.[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 620[0;31m     [0mparser[0m [0;34m=[0m [0mTextFileReader[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    621[0m [0;34m[0m[0m
+[1;32m    622[0m     [0;32mif[0m [0mchunksize[0m [0;32mor[0m [0miterator[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36m__init__[0;34m(self, f, engine, **kwds)[0m
+[1;32m   1618[0m [0;34m[0m[0m
+[1;32m   1619[0m         [0mself[0m[0;34m.[0m[0mhandles[0m[0;34m:[0m [0mIOHandles[0m [0;34m|[0m [0;32mNone[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1620[0;31m         [0mself[0m[0;34m.[0m[0m_engine[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_make_engine[0m[0;34m([0m[0mf[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mengine[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1621[0m [0;34m[0m[0m
+[1;32m   1622[0m     [0;32mdef[0m [0mclose[0m[0;34m([0m[0mself[0m[0;34m)[0m [0;34m->[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py[0m in [0;36m_make_engine[0;34m(self, f, engine)[0m
+[1;32m   1878[0m                 [0;32mif[0m [0;34m"b"[0m [0;32mnot[0m [0;32min[0m [0mmode[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1879[0m                     [0mmode[0m [0;34m+=[0m [0;34m"b"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1880[0;31m             self.handles = get_handle(
+[0m[1;32m   1881[0m                 [0mf[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1882[0m                 [0mmode[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.12/dist-packages/pandas/io/common.py[0m in [0;36mget_handle[0;34m(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)[0m
+[1;32m    871[0m         [0;32mif[0m [0mioargs[0m[0;34m.[0m[0mencoding[0m [0;32mand[0m [0;34m"b"[0m [0;32mnot[0m [0;32min[0m [0mioargs[0m[0;34m.[0m[0mmode[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    872[0m             [0;31m# Encoding[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 873[0;31m             handle = open(
+[0m[1;32m    874[0m                 [0mhandle[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    875[0m                 [0mioargs[0m[0;34m.[0m[0mmode[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'data_train.csv'
 
