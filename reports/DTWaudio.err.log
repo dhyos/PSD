@@ -37,7 +37,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-!pip install openeo
-!pip install pycaret
+['print("=== UPLOAD FILE REFERENSI ===")', 'print("Silakan upload 1 file audio REFERENSI untuk \'BUKA\'")', 'ref_buka_upload = files.upload()', 'ref_buka_name = next(iter(ref_buka_upload))', 'ref_buka_raw = load_and_prep_raw_audio(ref_buka_upload[ref_buka_name])']
+...
+['print("\\nSilakan upload 1 file audio REFERENSI untuk \'TUTUP\'")', 'ref_tutup_upload = files.upload()', 'ref_tutup_name = next(iter(ref_tutup_upload))', 'ref_tutup_raw = load_and_prep_raw_audio(ref_tutup_upload[ref_tutup_name])', 'print(f"Referensi Tutup \'{ref_tutup_name}\' dimuat.")']
 -------------------
 

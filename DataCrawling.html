@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'DataCrawling';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Import ibrary yang dibutuhkan" href="EkstrakAudioToFitur.html" />
+    <link rel="next" title="Prediksi Suara buka tutup" href="EkstrakAudioToFitur.html" />
     <link rel="prev" title="Ekplorasi Menggunakan Tools Knime" href="PraUTS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,7 +187,16 @@
 <li class="toctree-l1"><a class="reference internal" href="esembleLearning.html">Esemble Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PraUTS.html">Ekplorasi Menggunakan Tools Knime</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Crawling Data NO2 wilayah sumenep</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EkstrakAudioToFitur.html">Import ibrary yang dibutuhkan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EkstrakAudioToFitur.html">Prediksi Suara buka tutup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS_Project.html">Proyek Klasifikasi <em>Time Series</em> (CRISP-DM Tahap 1)</a></li>
+
+
+
+
+
+
+
+
 
 
 
@@ -440,73 +449,473 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openeo
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pycaret
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting openeo
-  Downloading openeo-0.45.0-py3-none-any.whl.metadata (8.2 kB)
+  Downloading openeo-0.46.0-py3-none-any.whl.metadata (8.1 kB)
 Requirement already satisfied: requests&gt;=2.26.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.32.4)
 Requirement already satisfied: urllib3&gt;=1.9.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.5.0)
-Requirement already satisfied: shapely&gt;=1.6.4 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.1.2)
-Requirement already satisfied: numpy&gt;=1.17.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.0.2)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting xarray&lt;2025.01.2,&gt;=0.12.3 (from openeo)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: shapely&gt;=1.6.4 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.1.2)
+Requirement already satisfied: numpy&gt;=1.17.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.0.2)
+Collecting xarray&lt;2025.01.2,&gt;=0.12.3 (from openeo)
   Downloading xarray-2025.1.1-py3-none-any.whl.metadata (11 kB)
 Requirement already satisfied: pandas&gt;0.20.0 in /usr/local/lib/python3.12/dist-packages (from openeo) (2.2.2)
-Collecting pystac&gt;=1.5.0 (from openeo)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pystac&gt;=1.5.0 (from openeo)
+  Downloading pystac-1.14.1-py3-none-any.whl.metadata (4.7 kB)
 Collecting deprecated&gt;=1.2.12 (from openeo)
-  Downloading Deprecated-1.2.18-py2.py3-none-any.whl.metadata (5.7 kB)
+  Downloading deprecated-1.3.1-py2.py3-none-any.whl.metadata (5.9 kB)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting wrapt&lt;2,&gt;=1.10 (from deprecated&gt;=1.2.12-&gt;openeo)
-  Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.4 kB)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: wrapt&lt;3,&gt;=1.10 in /usr/local/lib/python3.12/dist-packages (from deprecated&gt;=1.2.12-&gt;openeo) (2.0.1)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;0.20.0-&gt;openeo) (2025.2)
 Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (3.4.4)
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (3.11)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (2025.10.5)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.26.0-&gt;openeo) (2025.11.12)
 Requirement already satisfied: packaging&gt;=23.2 in /usr/local/lib/python3.12/dist-packages (from xarray&lt;2025.01.2,&gt;=0.12.3-&gt;openeo) (25.0)
 Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;0.20.0-&gt;openeo) (1.17.0)
-Downloading openeo-0.45.0-py3-none-any.whl (335 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/335.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">215.0/335.1 kB</span> <span class=" -Color -Color-Red">6.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">335.1/335.1 kB</span> <span class=" -Color -Color-Red">6.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading Deprecated-1.2.18-py2.py3-none-any.whl (10.0 kB)
+Downloading openeo-0.46.0-py3-none-any.whl (335 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/335.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺ <span class=" -Color -Color-Green">327.7/335.2 kB</span> <span class=" -Color -Color-Red">10.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">335.2/335.2 kB</span> <span class=" -Color -Color-Red">7.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading deprecated-1.3.1-py2.py3-none-any.whl (11 kB)
 Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
 ?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/207.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">207.7/207.7 kB</span> <span class=" -Color -Color-Red">14.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading xarray-2025.1.1-py3-none-any.whl (1.2 MB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.2/1.2 MB</span> <span class=" -Color -Color-Red">39.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25hDownloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (88 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/88.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">88.0/88.0 kB</span> <span class=" -Color -Color-Red">6.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">207.7/207.7 kB</span> <span class=" -Color -Color-Red">14.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25h
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: wrapt, pystac, deprecated, xarray, openeo
-  Attempting uninstall: wrapt
-    Found existing installation: wrapt 2.0.0
-    Uninstalling wrapt-2.0.0:
-      Successfully uninstalled wrapt-2.0.0
-  Attempting uninstall: xarray
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading xarray-2025.1.1-py3-none-any.whl (1.2 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.2/1.2 MB</span> <span class=" -Color -Color-Red">36.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: xarray 2025.10.1
-    Uninstalling xarray-2025.10.1:
-      Successfully uninstalled xarray-2025.10.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: deprecated, pystac, xarray, openeo
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed deprecated-1.2.18 openeo-0.45.0 pystac-1.14.1 wrapt-1.17.3 xarray-2025.1.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: xarray
+    Found existing installation: xarray 2025.12.0
+    Uninstalling xarray-2025.12.0:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled xarray-2025.12.0
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed deprecated-1.3.1 openeo-0.46.0 pystac-1.14.1 xarray-2025.1.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pycaret
+  Downloading pycaret-3.3.2-py3-none-any.whl.metadata (17 kB)
+Requirement already satisfied: ipython&gt;=5.5.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (7.34.0)
+Requirement already satisfied: ipywidgets&gt;=7.6.5 in /usr/local/lib/python3.12/dist-packages (from pycaret) (7.7.1)
+Requirement already satisfied: tqdm&gt;=4.62.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (4.67.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting numpy&lt;1.27,&gt;=1.21 (from pycaret)
+  Downloading numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/61.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">61.0/61.0 kB</span> <span class=" -Color -Color-Red">2.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pandas&lt;2.2.0 (from pycaret)
+  Downloading pandas-2.1.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (18 kB)
+Requirement already satisfied: jinja2&gt;=3 in /usr/local/lib/python3.12/dist-packages (from pycaret) (3.1.6)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scipy&lt;=1.11.4,&gt;=1.6.1 (from pycaret)
+  Downloading scipy-1.11.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (60 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/60.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">60.4/60.4 kB</span> <span class=" -Color -Color-Red">4.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hCollecting joblib&lt;1.4,&gt;=1.2.0 (from pycaret)
+  Downloading joblib-1.3.2-py3-none-any.whl.metadata (5.4 kB)
+Requirement already satisfied: scikit-learn&gt;1.4.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (1.6.1)
+Collecting pyod&gt;=1.1.3 (from pycaret)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pyod-2.0.6-py3-none-any.whl.metadata (46 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/46.3 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">46.3/46.3 kB</span> <span class=" -Color -Color-Red">3.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: imbalanced-learn&gt;=0.12.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (0.14.0)
+Collecting category-encoders&gt;=2.4.0 (from pycaret)
+  Downloading category_encoders-2.9.0-py3-none-any.whl.metadata (7.9 kB)
+Requirement already satisfied: lightgbm&gt;=3.0.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (4.6.0)
+Requirement already satisfied: numba&gt;=0.55.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (0.60.0)
+Requirement already satisfied: requests&gt;=2.27.1 in /usr/local/lib/python3.12/dist-packages (from pycaret) (2.32.4)
+Requirement already satisfied: psutil&gt;=5.9.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (5.9.5)
+Requirement already satisfied: markupsafe&gt;=2.0.1 in /usr/local/lib/python3.12/dist-packages (from pycaret) (3.0.3)
+Requirement already satisfied: importlib-metadata&gt;=4.12.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (8.7.0)
+Requirement already satisfied: nbformat&gt;=4.2.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (5.10.4)
+Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from pycaret) (3.1.2)
+Requirement already satisfied: deprecation&gt;=2.1.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (2.1.0)
+Requirement already satisfied: xxhash in /usr/local/lib/python3.12/dist-packages (from pycaret) (3.6.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting matplotlib&lt;3.8.0 (from pycaret)
+  Downloading matplotlib-3.7.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.7 kB)
+Collecting scikit-plot&gt;=0.3.7 (from pycaret)
+  Downloading scikit_plot-0.3.7-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: yellowbrick&gt;=1.4 in /usr/local/lib/python3.12/dist-packages (from pycaret) (1.5)
+Requirement already satisfied: plotly&gt;=5.14.0 in /usr/local/lib/python3.12/dist-packages (from pycaret) (5.24.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting kaleido&gt;=0.2.1 (from pycaret)
+  Downloading kaleido-1.2.0-py3-none-any.whl.metadata (5.6 kB)
+Collecting schemdraw==0.15 (from pycaret)
+  Downloading schemdraw-0.15-py3-none-any.whl.metadata (2.2 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting plotly-resampler&gt;=0.8.3.1 (from pycaret)
+  Downloading plotly_resampler-0.11.0-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: statsmodels&gt;=0.12.1 in /usr/local/lib/python3.12/dist-packages (from pycaret) (0.14.6)
+Collecting sktime==0.26.0 (from pycaret)
+  Downloading sktime-0.26.0-py3-none-any.whl.metadata (29 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tbats&gt;=1.1.3 (from pycaret)
+  Downloading tbats-1.1.3-py3-none-any.whl.metadata (3.8 kB)
+Collecting pmdarima&gt;=2.0.4 (from pycaret)
+  Downloading pmdarima-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.5 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: wurlitzer in /usr/local/lib/python3.12/dist-packages (from pycaret) (3.1.1)
+Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from sktime==0.26.0-&gt;pycaret) (25.0)
+Collecting scikit-base&lt;0.8.0 (from sktime==0.26.0-&gt;pycaret)
+  Downloading scikit_base-0.7.8-py3-none-any.whl.metadata (8.8 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scikit-learn&gt;1.4.0 (from pycaret)
+  Downloading scikit_learn-1.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Requirement already satisfied: patsy&gt;=0.5.1 in /usr/local/lib/python3.12/dist-packages (from category-encoders&gt;=2.4.0-&gt;pycaret) (1.0.2)
+INFO: pip is looking at multiple versions of category-encoders to determine which version is compatible with other requirements. This could take a while.
+Collecting category-encoders&gt;=2.4.0 (from pycaret)
+  Downloading category_encoders-2.8.1-py3-none-any.whl.metadata (7.9 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading category_encoders-2.8.0-py3-none-any.whl.metadata (7.9 kB)
+  Downloading category_encoders-2.7.0-py3-none-any.whl.metadata (7.9 kB)
+Requirement already satisfied: threadpoolctl&lt;4,&gt;=2.0.0 in /usr/local/lib/python3.12/dist-packages (from imbalanced-learn&gt;=0.12.0-&gt;pycaret) (3.6.0)
+Requirement already satisfied: zipp&gt;=3.20 in /usr/local/lib/python3.12/dist-packages (from importlib-metadata&gt;=4.12.0-&gt;pycaret) (3.23.0)
+Requirement already satisfied: setuptools&gt;=18.5 in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (75.2.0)
+Requirement already satisfied: jedi&gt;=0.16 in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (0.19.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: decorator in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (4.4.2)
+Requirement already satisfied: pickleshare in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (0.7.5)
+Requirement already satisfied: traitlets&gt;=4.2 in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (5.7.1)
+Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0 in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (3.0.52)
+Requirement already satisfied: pygments in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (2.19.2)
+Requirement already satisfied: backcall in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (0.2.0)
+Requirement already satisfied: matplotlib-inline in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (0.2.1)
+Requirement already satisfied: pexpect&gt;4.3 in /usr/local/lib/python3.12/dist-packages (from ipython&gt;=5.5.0-&gt;pycaret) (4.9.0)
+Requirement already satisfied: ipykernel&gt;=4.5.1 in /usr/local/lib/python3.12/dist-packages (from ipywidgets&gt;=7.6.5-&gt;pycaret) (6.17.1)
+Requirement already satisfied: ipython-genutils~=0.2.0 in /usr/local/lib/python3.12/dist-packages (from ipywidgets&gt;=7.6.5-&gt;pycaret) (0.2.0)
+Requirement already satisfied: widgetsnbextension~=3.6.0 in /usr/local/lib/python3.12/dist-packages (from ipywidgets&gt;=7.6.5-&gt;pycaret) (3.6.10)
+Requirement already satisfied: jupyterlab-widgets&gt;=1.0.0 in /usr/local/lib/python3.12/dist-packages (from ipywidgets&gt;=7.6.5-&gt;pycaret) (3.0.16)
+Collecting choreographer&gt;=1.1.1 (from kaleido&gt;=0.2.1-&gt;pycaret)
+  Downloading choreographer-1.2.1-py3-none-any.whl.metadata (6.8 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting logistro&gt;=1.0.8 (from kaleido&gt;=0.2.1-&gt;pycaret)
+  Downloading logistro-2.0.1-py3-none-any.whl.metadata (3.9 kB)
+Requirement already satisfied: orjson&gt;=3.10.15 in /usr/local/lib/python3.12/dist-packages (from kaleido&gt;=0.2.1-&gt;pycaret) (3.11.5)
+Collecting pytest-timeout&gt;=2.4.0 (from kaleido&gt;=0.2.1-&gt;pycaret)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pytest_timeout-2.4.0-py3-none-any.whl.metadata (20 kB)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (1.3.3)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (4.61.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (1.4.9)
+Requirement already satisfied: pillow&gt;=6.2.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (11.3.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (3.2.5)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/local/lib/python3.12/dist-packages (from matplotlib&lt;3.8.0-&gt;pycaret) (2.9.0.post0)
+Requirement already satisfied: fastjsonschema&gt;=2.15 in /usr/local/lib/python3.12/dist-packages (from nbformat&gt;=4.2.0-&gt;pycaret) (2.21.2)
+Requirement already satisfied: jsonschema&gt;=2.6 in /usr/local/lib/python3.12/dist-packages (from nbformat&gt;=4.2.0-&gt;pycaret) (4.25.1)
+Requirement already satisfied: jupyter-core!=5.0.*,&gt;=4.12 in /usr/local/lib/python3.12/dist-packages (from nbformat&gt;=4.2.0-&gt;pycaret) (5.9.1)
+Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/local/lib/python3.12/dist-packages (from numba&gt;=0.55.0-&gt;pycaret) (0.43.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas&lt;2.2.0-&gt;pycaret) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.1 in /usr/local/lib/python3.12/dist-packages (from pandas&lt;2.2.0-&gt;pycaret) (2025.2)
+Requirement already satisfied: tenacity&gt;=6.2.0 in /usr/local/lib/python3.12/dist-packages (from plotly&gt;=5.14.0-&gt;pycaret) (9.1.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting dash&gt;=2.11.0 (from plotly-resampler&gt;=0.8.3.1-&gt;pycaret)
+  Downloading dash-3.3.0-py3-none-any.whl.metadata (11 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tsdownsample&gt;=0.1.3 (from plotly-resampler&gt;=0.8.3.1-&gt;pycaret)
+  Downloading tsdownsample-0.1.4.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (8.0 kB)
+Requirement already satisfied: Cython!=0.29.18,!=0.29.31,&gt;=0.29 in /usr/local/lib/python3.12/dist-packages (from pmdarima&gt;=2.0.4-&gt;pycaret) (3.0.12)
+INFO: pip is looking at multiple versions of pmdarima to determine which version is compatible with other requirements. This could take a while.
+Collecting pmdarima&gt;=2.0.4 (from pycaret)
+  Downloading pmdarima-2.1.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.5 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading pmdarima-2.0.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
+Requirement already satisfied: urllib3 in /usr/local/lib/python3.12/dist-packages (from pmdarima&gt;=2.0.4-&gt;pycaret) (2.5.0)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.27.1-&gt;pycaret) (3.4.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.27.1-&gt;pycaret) (3.11)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.27.1-&gt;pycaret) (2025.11.12)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: simplejson&gt;=3.19.3 in /usr/local/lib/python3.12/dist-packages (from choreographer&gt;=1.1.1-&gt;kaleido&gt;=0.2.1-&gt;pycaret) (3.20.2)
+Requirement already satisfied: Flask&lt;3.2,&gt;=1.0.4 in /usr/local/lib/python3.12/dist-packages (from dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (3.1.2)
+Requirement already satisfied: Werkzeug&lt;3.2 in /usr/local/lib/python3.12/dist-packages (from dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (3.1.4)
+Requirement already satisfied: typing_extensions&gt;=4.1.1 in /usr/local/lib/python3.12/dist-packages (from dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (4.15.0)
+Collecting retrying (from dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret)
+  Downloading retrying-1.4.2-py3-none-any.whl.metadata (5.5 kB)
+Requirement already satisfied: nest-asyncio in /usr/local/lib/python3.12/dist-packages (from dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (1.6.0)
+Requirement already satisfied: debugpy&gt;=1.0 in /usr/local/lib/python3.12/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.8.15)
+Requirement already satisfied: jupyter-client&gt;=6.1.12 in /usr/local/lib/python3.12/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (7.4.9)
+Requirement already satisfied: pyzmq&gt;=17 in /usr/local/lib/python3.12/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (26.2.1)
+Requirement already satisfied: tornado&gt;=6.1 in /usr/local/lib/python3.12/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (6.5.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: parso&lt;0.9.0,&gt;=0.8.4 in /usr/local/lib/python3.12/dist-packages (from jedi&gt;=0.16-&gt;ipython&gt;=5.5.0-&gt;pycaret) (0.8.5)
+Requirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.2.0-&gt;pycaret) (25.4.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.2.0-&gt;pycaret) (2025.9.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.2.0-&gt;pycaret) (0.37.0)
+Requirement already satisfied: rpds-py&gt;=0.7.1 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.2.0-&gt;pycaret) (0.30.0)
+Requirement already satisfied: platformdirs&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from jupyter-core!=5.0.*,&gt;=4.12-&gt;nbformat&gt;=4.2.0-&gt;pycaret) (4.5.1)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /usr/local/lib/python3.12/dist-packages (from pexpect&gt;4.3-&gt;ipython&gt;=5.5.0-&gt;pycaret) (0.7.0)
+Requirement already satisfied: wcwidth in /usr/local/lib/python3.12/dist-packages (from prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0-&gt;ipython&gt;=5.5.0-&gt;pycaret) (0.2.14)
+Requirement already satisfied: pytest&gt;=7.0.0 in /usr/local/lib/python3.12/dist-packages (from pytest-timeout&gt;=2.4.0-&gt;kaleido&gt;=0.2.1-&gt;pycaret) (8.4.2)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&lt;3.8.0-&gt;pycaret) (1.17.0)
+Requirement already satisfied: notebook&gt;=4.4.1 in /usr/local/lib/python3.12/dist-packages (from widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (6.5.7)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: blinker&gt;=1.9.0 in /usr/local/lib/python3.12/dist-packages (from Flask&lt;3.2,&gt;=1.0.4-&gt;dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (1.9.0)
+Requirement already satisfied: click&gt;=8.1.3 in /usr/local/lib/python3.12/dist-packages (from Flask&lt;3.2,&gt;=1.0.4-&gt;dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (8.3.1)
+Requirement already satisfied: itsdangerous&gt;=2.2.0 in /usr/local/lib/python3.12/dist-packages (from Flask&lt;3.2,&gt;=1.0.4-&gt;dash&gt;=2.11.0-&gt;plotly-resampler&gt;=0.8.3.1-&gt;pycaret) (2.2.0)
+Requirement already satisfied: entrypoints in /usr/local/lib/python3.12/dist-packages (from jupyter-client&gt;=6.1.12-&gt;ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.4)
+Requirement already satisfied: argon2-cffi in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (25.1.0)
+Requirement already satisfied: nbconvert&gt;=5 in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (7.16.6)
+Requirement already satisfied: Send2Trash&gt;=1.8.0 in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.8.3)
+Requirement already satisfied: terminado&gt;=0.8.3 in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.18.1)
+Requirement already satisfied: prometheus-client in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.23.1)
+Requirement already satisfied: nbclassic&gt;=0.4.7 in /usr/local/lib/python3.12/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.3.3)
+Requirement already satisfied: iniconfig&gt;=1 in /usr/local/lib/python3.12/dist-packages (from pytest&gt;=7.0.0-&gt;pytest-timeout&gt;=2.4.0-&gt;kaleido&gt;=0.2.1-&gt;pycaret) (2.3.0)
+Requirement already satisfied: pluggy&lt;2,&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from pytest&gt;=7.0.0-&gt;pytest-timeout&gt;=2.4.0-&gt;kaleido&gt;=0.2.1-&gt;pycaret) (1.6.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: notebook-shim&gt;=0.2.3 in /usr/local/lib/python3.12/dist-packages (from nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.2.4)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (4.13.5)
+Requirement already satisfied: bleach!=5.0.0 in /usr/local/lib/python3.12/dist-packages (from bleach[css]!=5.0.0-&gt;nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (6.3.0)
+Requirement already satisfied: defusedxml in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.7.1)
+Requirement already satisfied: jupyterlab-pygments in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.3.0)
+Requirement already satisfied: mistune&lt;4,&gt;=2.0.3 in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (3.1.4)
+Requirement already satisfied: nbclient&gt;=0.5.0 in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.10.2)
+Requirement already satisfied: pandocfilters&gt;=1.4.1 in /usr/local/lib/python3.12/dist-packages (from nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.5.1)
+Requirement already satisfied: argon2-cffi-bindings in /usr/local/lib/python3.12/dist-packages (from argon2-cffi-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (25.1.0)
+Requirement already satisfied: webencodings in /usr/local/lib/python3.12/dist-packages (from bleach!=5.0.0-&gt;bleach[css]!=5.0.0-&gt;nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.5.1)
+Requirement already satisfied: tinycss2&lt;1.5,&gt;=1.1.0 in /usr/local/lib/python3.12/dist-packages (from bleach[css]!=5.0.0-&gt;nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.4.0)
+Requirement already satisfied: jupyter-server&lt;3,&gt;=1.8 in /usr/local/lib/python3.12/dist-packages (from notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (2.14.0)
+Requirement already satisfied: cffi&gt;=1.0.1 in /usr/local/lib/python3.12/dist-packages (from argon2-cffi-bindings-&gt;argon2-cffi-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (2.0.0)
+Requirement already satisfied: soupsieve&gt;1.2 in /usr/local/lib/python3.12/dist-packages (from beautifulsoup4-&gt;nbconvert&gt;=5-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (2.8)
+Requirement already satisfied: pycparser in /usr/local/lib/python3.12/dist-packages (from cffi&gt;=1.0.1-&gt;argon2-cffi-bindings-&gt;argon2-cffi-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (2.23)
+Requirement already satisfied: anyio&gt;=3.1.0 in /usr/local/lib/python3.12/dist-packages (from jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (4.12.0)
+Requirement already satisfied: jupyter-events&gt;=0.9.0 in /usr/local/lib/python3.12/dist-packages (from jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.12.0)
+Requirement already satisfied: jupyter-server-terminals&gt;=0.4.4 in /usr/local/lib/python3.12/dist-packages (from jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.5.3)
+Requirement already satisfied: overrides&gt;=5.0 in /usr/local/lib/python3.12/dist-packages (from jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (7.7.0)
+Requirement already satisfied: websocket-client&gt;=1.7 in /usr/local/lib/python3.12/dist-packages (from jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.9.0)
+Requirement already satisfied: python-json-logger&gt;=2.0.4 in /usr/local/lib/python3.12/dist-packages (from jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (4.0.0)
+Requirement already satisfied: pyyaml&gt;=5.3 in /usr/local/lib/python3.12/dist-packages (from jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (6.0.3)
+Requirement already satisfied: rfc3339-validator in /usr/local/lib/python3.12/dist-packages (from jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.1.4)
+Requirement already satisfied: rfc3986-validator&gt;=0.1.1 in /usr/local/lib/python3.12/dist-packages (from jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (0.1.1)
+Requirement already satisfied: fqdn in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.5.1)
+Requirement already satisfied: isoduration in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (20.11.0)
+Requirement already satisfied: jsonpointer&gt;1.13 in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (3.0.0)
+Requirement already satisfied: rfc3987-syntax&gt;=1.1.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.1.0)
+Requirement already satisfied: uri-template in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.3.0)
+Requirement already satisfied: webcolors&gt;=24.6.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (25.10.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: lark&gt;=1.2.2 in /usr/local/lib/python3.12/dist-packages (from rfc3987-syntax&gt;=1.1.0-&gt;jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.3.1)
+Requirement already satisfied: arrow&gt;=0.15.0 in /usr/local/lib/python3.12/dist-packages (from isoduration-&gt;jsonschema[format-nongpl]&gt;=4.18.0-&gt;jupyter-events&gt;=0.9.0-&gt;jupyter-server&lt;3,&gt;=1.8-&gt;notebook-shim&gt;=0.2.3-&gt;nbclassic&gt;=0.4.7-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.6.5-&gt;pycaret) (1.4.0)
+Downloading pycaret-3.3.2-py3-none-any.whl (486 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/486.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">481.3/486.1 kB</span> <span class=" -Color -Color-Red">21.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">486.1/486.1 kB</span> <span class=" -Color -Color-Red">12.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading schemdraw-0.15-py3-none-any.whl (106 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/106.8 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">106.8/106.8 kB</span> <span class=" -Color -Color-Red">8.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading sktime-0.26.0-py3-none-any.whl (21.8 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/21.8 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.3/21.8 MB</span> <span class=" -Color -Color-Red">100.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.3/21.8 MB</span> <span class=" -Color -Color-Red">115.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">9.2/21.8 MB</span> <span class=" -Color -Color-Red">88.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">12.6/21.8 MB</span> <span class=" -Color -Color-Red">90.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━ <span class=" -Color -Color-Green">15.9/21.8 MB</span> <span class=" -Color -Color-Red">78.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━ <span class=" -Color -Color-Green">17.5/21.8 MB</span> <span class=" -Color -Color-Red">68.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">19.9/21.8 MB</span> <span class=" -Color -Color-Red">79.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">19.9/21.8 MB</span> <span class=" -Color -Color-Red">79.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━ <span class=" -Color -Color-Green">20.4/21.8 MB</span> <span class=" -Color -Color-Red">51.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━ <span class=" -Color -Color-Green">20.8/21.8 MB</span> <span class=" -Color -Color-Red">44.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">21.8/21.8 MB</span> <span class=" -Color -Color-Red">43.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">21.8/21.8 MB</span> <span class=" -Color -Color-Red">43.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">21.8/21.8 MB</span> <span class=" -Color -Color-Red">31.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading category_encoders-2.7.0-py3-none-any.whl (85 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/85.4 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">85.4/85.4 kB</span> <span class=" -Color -Color-Red">6.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading joblib-1.3.2-py3-none-any.whl (302 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/302.2 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">302.2/302.2 kB</span> <span class=" -Color -Color-Red">21.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading kaleido-1.2.0-py3-none-any.whl (68 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/69.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">69.0/69.0 kB</span> <span class=" -Color -Color-Red">5.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading matplotlib-3.7.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.6 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/11.6 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.6/11.6 MB</span> <span class=" -Color -Color-Red">139.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.9/11.6 MB</span> <span class=" -Color -Color-Red">114.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">11.6/11.6 MB</span> <span class=" -Color -Color-Red">110.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">11.6/11.6 MB</span> <span class=" -Color -Color-Red">110.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">11.6/11.6 MB</span> <span class=" -Color -Color-Red">71.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.0 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/18.0 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.2/18.0 MB</span> <span class=" -Color -Color-Red">218.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">11.7/18.0 MB</span> <span class=" -Color -Color-Red">165.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">16.4/18.0 MB</span> <span class=" -Color -Color-Red">134.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">17.9/18.0 MB</span> <span class=" -Color -Color-Red">138.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">17.9/18.0 MB</span> <span class=" -Color -Color-Red">138.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">18.0/18.0 MB</span> <span class=" -Color -Color-Red">71.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading pandas-2.1.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.7 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/11.7 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.8/11.7 MB</span> <span class=" -Color -Color-Red">115.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━ <span class=" -Color -Color-Green">9.0/11.7 MB</span> <span class=" -Color -Color-Red">130.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">11.7/11.7 MB</span> <span class=" -Color -Color-Red">130.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">11.7/11.7 MB</span> <span class=" -Color -Color-Red">76.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading plotly_resampler-0.11.0-py3-none-any.whl (82 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/82.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">82.7/82.7 kB</span> <span class=" -Color -Color-Red">6.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading pmdarima-2.0.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl (2.3 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/2.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.3/2.3 MB</span> <span class=" -Color -Color-Red">75.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading pyod-2.0.6-py3-none-any.whl (204 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/204.7 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">204.7/204.7 kB</span> <span class=" -Color -Color-Red">15.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading scikit_learn-1.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.2 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/12.2 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.0/12.2 MB</span> <span class=" -Color -Color-Red">156.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━ <span class=" -Color -Color-Green">9.4/12.2 MB</span> <span class=" -Color -Color-Red">152.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━ <span class=" -Color -Color-Green">10.7/12.2 MB</span> <span class=" -Color -Color-Red">100.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">12.2/12.2 MB</span> <span class=" -Color -Color-Red">92.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">12.2/12.2 MB</span> <span class=" -Color -Color-Red">61.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading scikit_plot-0.3.7-py3-none-any.whl (33 kB)
+Downloading scipy-1.11.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (35.8 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/35.8 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.1/35.8 MB</span> <span class=" -Color -Color-Red">215.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.4/35.8 MB</span> <span class=" -Color -Color-Red">64.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">10.7/35.8 MB</span> <span class=" -Color -Color-Red">99.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">16.0/35.8 MB</span> <span class=" -Color -Color-Red">165.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">20.2/35.8 MB</span> <span class=" -Color -Color-Red">132.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━ <span class=" -Color -Color-Green">25.2/35.8 MB</span> <span class=" -Color -Color-Red">123.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━ <span class=" -Color -Color-Green">28.8/35.8 MB</span> <span class=" -Color -Color-Red">110.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━ <span class=" -Color -Color-Green">32.7/35.8 MB</span> <span class=" -Color -Color-Red">104.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">105.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">35.8/35.8 MB</span> <span class=" -Color -Color-Red">12.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading tbats-1.1.3-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/44.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">44.0/44.0 kB</span> <span class=" -Color -Color-Red">3.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading choreographer-1.2.1-py3-none-any.whl (49 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/49.3 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">49.3/49.3 kB</span> <span class=" -Color -Color-Red">3.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading dash-3.3.0-py3-none-any.whl (7.9 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/7.9 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.3/7.9 MB</span> <span class=" -Color -Color-Red">159.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">7.9/7.9 MB</span> <span class=" -Color -Color-Red">168.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">7.9/7.9 MB</span> <span class=" -Color -Color-Red">94.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading logistro-2.0.1-py3-none-any.whl (8.6 kB)
+Downloading pytest_timeout-2.4.0-py3-none-any.whl (14 kB)
+Downloading scikit_base-0.7.8-py3-none-any.whl (130 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/130.1 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">130.1/130.1 kB</span> <span class=" -Color -Color-Red">9.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading tsdownsample-0.1.4.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/1.3 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">1.3/1.3 MB</span> <span class=" -Color -Color-Red">55.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">1.3/1.3 MB</span> <span class=" -Color -Color-Red">33.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hDownloading retrying-1.4.2-py3-none-any.whl (10 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: scikit-base, schemdraw, retrying, numpy, logistro, joblib, tsdownsample, scipy, pytest-timeout, pandas, choreographer, scikit-learn, matplotlib, kaleido, dash, sktime, scikit-plot, pyod, pmdarima, plotly-resampler, category-encoders, tbats, pycaret
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: numpy
+    Found existing installation: numpy 2.0.2
+    Uninstalling numpy-2.0.2:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Successfully uninstalled numpy-2.0.2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Attempting uninstall: joblib
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Found existing installation: joblib 1.5.2
+    Uninstalling joblib-1.5.2:
+<span class=" -Color -Color-Red">ERROR: Operation cancelled by user</span>
+
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
 </pre></div>
 </div>
 </div>
@@ -531,34 +940,7 @@ Downloading pystac-1.14.1-py3-none-any.whl (207 kB)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=OEBA-YHZC');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html"><code>[##################################---]</code> ⌛ Authorization pending</div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">/tmp/ipython-input-1507458264.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Connect to openEO backend</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">openeo</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;openeo.dataspace.copernicus.eu&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">authenticate_oidc</span><span class="p">()</span>
-
-<span class="nn">/usr/local/lib/python3.12/dist-packages/openeo/rest/connection.py</span> in <span class="ni">authenticate_oidc</span><span class="nt">(self, provider_id, client_id, client_secret, store_refresh_token, use_pkce, display, max_poll_time)</span>
-<span class="g g-Whitespace">    </span><span class="mi">619</span>             <span class="n">client_info</span><span class="o">=</span><span class="n">client_info</span><span class="p">,</span> <span class="n">use_pkce</span><span class="o">=</span><span class="n">use_pkce</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="n">display</span><span class="p">,</span> <span class="n">max_poll_time</span><span class="o">=</span><span class="n">max_poll_time</span>
-<span class="g g-Whitespace">    </span><span class="mi">620</span>         <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">621</span>         <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate_oidc</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">622</span>             <span class="n">authenticator</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">623</span>             <span class="n">provider_id</span><span class="o">=</span><span class="n">provider_id</span><span class="p">,</span>
-
-<span class="nn">/usr/local/lib/python3.12/dist-packages/openeo/rest/connection.py</span> in <span class="ni">_authenticate_oidc</span><span class="nt">(self, authenticator, provider_id, store_refresh_token, fallback_refresh_token_to_store, oidc_auth_renewer)</span>
-<span class="g g-Whitespace">    </span><span class="mi">349</span>         <span class="n">Authenticate</span> <span class="n">through</span> <span class="n">OIDC</span> <span class="ow">and</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">bearer</span> <span class="n">token</span> <span class="p">(</span><span class="n">based</span> <span class="n">on</span> <span class="n">OIDC</span> <span class="n">access_token</span><span class="p">)</span> <span class="k">for</span> <span class="n">further</span> <span class="n">requests</span><span class="o">.</span>
-<span class="g g-Whitespace">    </span><span class="mi">350</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">351</span><span class="s2">         tokens = authenticator.get_tokens(request_refresh_token=store_refresh_token)</span>
-<span class="nn">    352         _log.info(&quot;Obtained tokens: {t}&quot;.format(t=[k for k, v</span> in <span class="ni">tokens._asdict().items</span><span class="nt">() if v]))</span>
-<span class="g g-Whitespace">    </span><span class="mi">353</span><span class="s2">         if store_refresh_token:</span>
-
-<span class="nn">/usr/local/lib/python3.12/dist-packages/openeo/rest/auth/oidc.py</span> in <span class="ni">get_tokens</span><span class="nt">(self, request_refresh_token)</span>
-<span class="g g-Whitespace">    </span><span class="mi">912</span><span class="s2">             while elapsed() &lt;= self._max_poll_time:</span>
-<span class="g g-Whitespace">    </span><span class="mi">913</span><span class="s2">                 poll_ui.show_progress()</span>
-<span class="ne">--&gt; </span><span class="mi">914</span><span class="s2">                 time.sleep(sleep)</span>
-<span class="g g-Whitespace">    </span><span class="mi">915</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">916</span><span class="s2">                 if elapsed() &gt;= next_poll:</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+<div class="output text_html">Visit <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=VSHL-LFLX" title="Authenticate at https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=VSHL-LFLX" target="_blank" rel="noopener noreferrer">https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=VSHL-LFLX</a> <a href="#" onclick="navigator.clipboard.writeText('https://identity.dataspace.copernicus.eu/auth/realms/CDSE/device?user_code=VSHL-LFLX');return false;" title="Copy authentication URL to clipboard">&#128203;</a> to authenticate.</div><div class="output text_html">✅ Authorized successfully</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Authenticated using device code flow.
 </pre></div>
 </div>
 </div>
@@ -2470,6 +2852,145 @@ Visualisasi hasil prediksi model optimal dengan time series plot dan scatter plo
 <section id="link-dataset">
 <h2>Link dataset<a class="headerlink" href="#link-dataset" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://drive.google.com/drive/folders/1d4XI0wizxpA28t4YauCrV9Afc885tp19?usp=sharing">https://drive.google.com/drive/folders/1d4XI0wizxpA28t4YauCrV9Afc885tp19?usp=sharing</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pastikan Anda menjalankan ini di lingkungan Python 3.9, 3.10, or 3.11</span>
+<span class="c1"># Anda mungkin perlu menginstal: pip install pycaret[full]</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pycaret.time_series</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.1 PERSIAPAN DATA</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Memulai 4.1 Persiapan Data...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load data Anda</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;timeseries_NO2_preprocessed.csv&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil di-load.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Tampilkan info dan 5 baris pertama untuk inspeksi</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- df.info() ---&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- df.head() ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+    <span class="c1"># Asumsi berdasarkan nama file dan snippet:</span>
+    <span class="c1"># Kolom tanggal adalah &#39;t&#39; dan kolom target adalah &#39;NO2&#39;</span>
+
+    <span class="c1"># 1. Pilih kolom yang relevan</span>
+    <span class="n">data_no2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">]]</span>
+
+    <span class="c1"># 2. Konversi &#39;t&#39; ke datetime</span>
+    <span class="n">data_no2</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_no2</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
+
+    <span class="c1"># 3. Set &#39;t&#39; sebagai index</span>
+    <span class="n">data_no2</span> <span class="o">=</span> <span class="n">data_no2</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+
+    <span class="c1"># 4. Pastikan frekuensi harian (&#39;D&#39;) dan interpolasi</span>
+    <span class="c1"># Ini langkah krusial untuk PyCaret</span>
+    <span class="n">data_no2</span> <span class="o">=</span> <span class="n">data_no2</span><span class="o">.</span><span class="n">asfreq</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+    <span class="n">data_no2</span> <span class="o">=</span> <span class="n">data_no2</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data setelah preprocessing (head):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_no2</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total data points setelah resampling: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_no2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: File &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&#39; tidak ditemukan.&quot;</span><span class="p">)</span>
+    <span class="c1"># Hentikan eksekusi jika file tidak ada</span>
+    <span class="n">exit</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Kolom &#39;t&#39; atau &#39;NO2&#39; tidak ditemukan. Pastikan nama kolom di file CSV Anda benar.&quot;</span><span class="p">)</span>
+    <span class="c1"># Hentikan eksekusi jika kolom tidak ada</span>
+    <span class="n">exit</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Terjadi error saat memproses data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">exit</span><span class="p">()</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.2 SETUP EKSPERIMEN PYCARET</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memulai 4.2 Setup Eksperimen PyCaret...&quot;</span><span class="p">)</span>
+<span class="c1"># Kita akan meramal 30 hari ke depan</span>
+<span class="c1"># fold=3 untuk cross-validation, session_id=123 untuk reproduktibilitas</span>
+<span class="n">exp</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_no2</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="n">fh</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">fold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setup PyCaret selesai.&quot;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.3 PEMBUATAN DAN PERBANDINGAN MODEL</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memulai 4.3 Perbandingan Model...&quot;</span><span class="p">)</span>
+<span class="c1"># Bandingkan semua model yang ada di library PyCaret</span>
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">compare_models</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hasil Perbandingan Model (best_model):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">best_model</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.4 FOKUS PADA EXPONENTIAL SMOOTHING (ETS)</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memulai 4.4 Fokus pada ETS...&quot;</span><span class="p">)</span>
+<span class="c1"># Buat model &#39;ets&#39; (Exponential Smoothing) secara spesifik</span>
+<span class="n">ets_model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;ets&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Detail Model ETS:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ets_model</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.5 ANALISIS DAN VISUALISASI HASIL</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memulai 4.5 Analisis Visual...&quot;</span><span class="p">)</span>
+<span class="c1"># Plot hasil peramalan</span>
+<span class="c1"># &#39;save=True&#39; penting agar gambar disimpan</span>
+<span class="n">plot_model</span><span class="p">(</span><span class="n">ets_model</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;forecast&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;ets_forecast_plot.png&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plot peramalan disimpan sebagai &#39;ets_forecast_plot.png&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot dekomposisi data (Trend, Seasonality, Residual)</span>
+<span class="n">plot_model</span><span class="p">(</span><span class="n">ets_model</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;decomp&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;ets_decomp_plot.png&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plot dekomposisi disimpan sebagai &#39;ets_decomp_plot.png&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># 4.6 FINALISASI DAN PREDIKSI AKHIR</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Memulai 4.6 Finalisasi Model dan Prediksi...&quot;</span><span class="p">)</span>
+<span class="c1"># Finalisasi model (melatih ulang dengan semua data)</span>
+<span class="n">final_ets</span> <span class="o">=</span> <span class="n">finalize_model</span><span class="p">(</span><span class="n">ets_model</span><span class="p">)</span>
+
+<span class="c1"># Lakukan peramalan 30 hari ke depan</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">predict_model</span><span class="p">(</span><span class="n">final_ets</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hasil Peramalan 30 Hari ke Depan (predictions):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span> <span class="c1"># Tampilkan 30 baris peramalan</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- EKSEKUSI SELESAI ---&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-95406905.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">pycaret.time_series</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pycaret</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">22</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>         <span class="s2">&quot;Pycaret only supports python 3.9, 3.10, 3.11. Your actual Python version: &quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">,</span>
+
+<span class="ne">RuntimeError</span>: (&#39;Pycaret only supports python 3.9, 3.10, 3.11. Your actual Python version: &#39;, sys.version_info(major=3, minor=12, micro=12, releaselevel=&#39;final&#39;, serial=0), &#39;Please DOWNGRADE your Python version.&#39;)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -2517,7 +3038,7 @@ Visualisasi hasil prediksi model optimal dengan time series plot dan scatter plo
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Import ibrary yang dibutuhkan</p>
+        <p class="prev-next-title">Prediksi Suara buka tutup</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

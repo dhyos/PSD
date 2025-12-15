@@ -1,0 +1,81 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.12/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+# --- 1. Hitung Matriks Korelasi Penuh ---
+# Hanya variabel numerik yang akan digunakan untuk korelasi
+correlation_matrix = df_all.select_dtypes(include=np.number).corr(numeric_only=True)
+
+# --- 2. Korelasi Fitur terhadap Label Kelas ---
+# Ekstrak korelasi kolom 'Class_Label' dengan semua fitur
+label_correlation = correlation_matrix['Class_Label'].drop('Class_Label')
+
+print("--- Matriks Korelasi (Fitur vs. Class_Label) ---")
+print("Kolom ini menunjukkan seberapa kuat hubungan antara setiap titik data spektrum (Fitur Time Series) dengan Label Kelas (Stroberi Murni vs Non-Stroberi).")
+
+# Tampilkan 5 korelasi terkuat (nilai absolut tertinggi)
+print("\nTop 5 Korelasi Terkuat (Positif dan Negatif):")
+top_5_abs = label_correlation.abs().nlargest(5).index
+print(label_correlation[top_5_abs].to_markdown(floatfmt=".4f"))
+
+# Tampilkan 5 korelasi terlemah (mendekati 0)
+print("\nTop 5 Korelasi Terlemah (mendekati 0):")
+bottom_5_abs = label_correlation.abs().nsmallest(5).index
+print(label_correlation[bottom_5_abs].to_markdown(floatfmt=".4f"))
+
+# --- 3. Subset Matriks Korelasi Antar Fitur (Fitur vs. Fitur) ---
+# Tampilkan subset 5x5 untuk variabel fitur awal
+feature_columns_in_df_all = [col for col in df_all.columns if col.startswith('Fitur_Time_')]
+subset_features = feature_columns_in_df_all[:5]
+feature_subset_matrix = correlation_matrix.loc[subset_features, subset_features]
+
+print("\n--- Subset Matriks Korelasi Antar Fitur (5 Fitur Awal vs. 5 Fitur Awal) ---")
+print("Tabel ini menunjukkan hubungan antar fitur spektral (misalnya, redundansi informasi).")
+print(feature_subset_matrix.to_markdown(floatfmt=".4f"))
+
+# --- 4. Visualisasi Matriks Korelasi Penuh ---
+print("\n--- Visualisasi Matriks Korelasi Penuh ---")
+plt.figure(figsize=(15, 12)) # Ukuran plot disesuaikan
+sns.heatmap(correlation_matrix, cmap='coolwarm', fmt=".2f",
+            cbar_kws={'label': 'Koefisien Korelasi'})
+plt.title('Matriks Korelasi Penuh antara Fitur Spektral dan Class_Label',
+          fontsize=16, pad=20)
+plt.xlabel('Variabel', fontsize=12)
+plt.ylabel('Variabel', fontsize=12)
+plt.show()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+[0;32m/tmp/ipython-input-2768812470.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m      7[0m [0;31m# --- 1. Hitung Matriks Korelasi Penuh ---[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      8[0m [0;31m# Hanya variabel numerik yang akan digunakan untuk korelasi[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 9[0;31m [0mcorrelation_matrix[0m [0;34m=[0m [0mdf_all[0m[0;34m.[0m[0mselect_dtypes[0m[0;34m([0m[0minclude[0m[0;34m=[0m[0mnp[0m[0;34m.[0m[0mnumber[0m[0;34m)[0m[0;34m.[0m[0mcorr[0m[0;34m([0m[0mnumeric_only[0m[0;34m=[0m[0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     10[0m [0;34m[0m[0m
+[1;32m     11[0m [0;31m# --- 2. Korelasi Fitur terhadap Label Kelas ---[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mAttributeError[0m: 'NoneType' object has no attribute 'select_dtypes'
+
